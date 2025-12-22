@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="480" viewBox="0 0 800 480" role="img" aria-label="Imagen producto 2">
+  <rect width="100%" height="100%" fill="#fff"/>
+  <rect x="8" y="8" width="784" height="464" rx="6" fill="#fff7ed" stroke="#fff1e6"/>
+  <text x="40" y="120" font-family="Inter,Arial" font-size="28" fill="#002b54">Producto 2</text>
+  <rect x="520" y="220" width="200" height="200" rx="100" fill="#071a2b" />
+</svg>

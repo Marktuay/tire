@@ -1,0 +1,410 @@
+/* ========================================
+   SHOP PAGE STYLES
+   ======================================== */
+
+/* Shop Hero */
+.shop-hero {
+    padding: 100px 0 60px;
+    background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%);
+    text-align: center;
+}
+
+.shop-hero-content h1 {
+    font-size: 3rem;
+    margin: 0 0 16px 0;
+    color: #fff;
+}
+
+.shop-hero-content .lead {
+    font-size: 1.5rem;
+    color: var(--accent);
+    margin: 0 0 20px 0;
+    font-weight: 600;
+}
+
+.shop-hero-content .hero-description {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+/* Category Filter */
+.category-filter {
+    padding: 60px 0 40px;
+}
+
+.category-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.category-btn {
+    padding: 12px 28px;
+    background: linear-gradient(180deg, var(--surface), transparent);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.category-btn:hover {
+    border-color: var(--accent);
+    background: rgba(255, 204, 0, 0.1);
+    color: #fff;
+}
+
+.category-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--bg);
+}
+
+/* Products Catalog */
+.products-catalog {
+    padding: 80px 0;
+}
+
+.products-grid-shop {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.product-card-shop {
+    background: linear-gradient(180deg, var(--surface), transparent);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card-shop:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(255, 204, 0, 0.15);
+    border-color: rgba(255, 204, 0, 0.2);
+}
+
+.product-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: var(--accent);
+    color: var(--bg);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    z-index: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.product-image-shop {
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.product-image-shop img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.product-card-shop:hover .product-image-shop img {
+    transform: scale(1.05);
+}
+
+.product-info-shop {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.product-info-shop h3 {
+    color: #fff;
+    font-size: 1.25rem;
+    margin: 0 0 8px 0;
+}
+
+.product-category {
+    color: var(--accent);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.product-description {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0 0 16px 0;
+}
+
+.product-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+    flex-grow: 1;
+}
+
+.product-features li {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    padding: 6px 0;
+    padding-left: 24px;
+    position: relative;
+}
+
+.product-features li:before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.product-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.product-price {
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 0;
+}
+
+.product-price span {
+    font-size: 1rem;
+    color: var(--muted);
+    font-weight: 400;
+}
+
+/* Shop Benefits */
+.shop-benefits {
+    padding: 80px 0;
+}
+
+.shop-benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.shop-benefit-card {
+    background: linear-gradient(180deg, var(--surface), transparent);
+    padding: 32px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.shop-benefit-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(255, 204, 0, 0.15);
+    border-color: rgba(255, 204, 0, 0.2);
+}
+
+.benefit-icon-shop {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 20px;
+}
+
+.benefit-icon-shop svg {
+    width: 100%;
+    height: 100%;
+    color: var(--accent);
+}
+
+.shop-benefit-card h3 {
+    color: #fff;
+    font-size: 1.2rem;
+    margin: 0 0 12px 0;
+}
+
+.shop-benefit-card p {
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+/* Tire Finder */
+.tire-finder {
+    padding: 80px 0;
+}
+
+.tire-finder-content {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.tire-finder-content h2 {
+    font-size: 2.5rem;
+    margin: 0 0 16px 0;
+    color: #fff;
+}
+
+.tire-finder-content>p {
+    font-size: 1.2rem;
+    color: var(--muted);
+    margin: 0 0 50px 0;
+    line-height: 1.7;
+}
+
+.finder-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.finder-option {
+    background: linear-gradient(180deg, var(--surface), transparent);
+    padding: 32px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.finder-option h3 {
+    color: var(--accent);
+    font-size: 1.3rem;
+    margin: 0 0 8px 0;
+}
+
+.finder-option p {
+    color: var(--muted);
+    margin: 0 0 24px 0;
+    line-height: 1.6;
+}
+
+.finder-option .btn {
+    width: 100%;
+    text-align: center;
+}
+
+/* Services Included */
+.services-included {
+    padding: 80px 0;
+}
+
+.included-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.included-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 24px;
+    background: linear-gradient(180deg, var(--surface), transparent);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.included-icon {
+    width: 32px;
+    height: 32px;
+    color: var(--accent);
+    flex-shrink: 0;
+}
+
+.included-item h3 {
+    color: #fff;
+    font-size: 1.1rem;
+    margin: 0 0 6px 0;
+}
+
+.included-item p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Responsive Styles for Shop Page */
+@media (max-width: 1100px) {
+    .products-grid-shop {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .shop-benefits-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .finder-options {
+        grid-template-columns: 1fr;
+    }
+
+    .included-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 680px) {
+    .shop-hero {
+        padding: 60px 0 40px;
+    }
+
+    .shop-hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .shop-hero-content .lead {
+        font-size: 1.2rem;
+    }
+
+    .category-buttons {
+        gap: 8px;
+    }
+
+    .category-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+
+    .products-grid-shop {
+        grid-template-columns: 1fr;
+    }
+
+    .shop-benefits-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tire-finder-content h2 {
+        font-size: 1.8rem;
+    }
+
+    .included-grid {
+        grid-template-columns: 1fr;
+    }
+}
