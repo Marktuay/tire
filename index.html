@@ -432,7 +432,8 @@
 			<section id="productos" class="section productos dark-section">
 				<div class="container">
 					<h2>Featured Catalog</h2>
-					<div class="grid cards">
+					<div id="products-container" class="grid cards">
+						<!-- Products will be loaded here dynamically or fallback to static content -->
 									<article class="card dark-card">
 										<picture>
 											<img src="images/prod-1-original.png" alt="All-Season X1 Tire" loading="lazy" sizes="(min-width:1100px) 25vw, (min-width:680px) 50vw, 100vw" />
@@ -897,6 +898,7 @@
 			<script>
 				document.getElementById('year').textContent = new Date().getFullYear();
 			</script>
+			<script src="js/woocommerce.js" defer></script>
 			<script src="js/main.js" defer></script>
 		</footer>
 	</body>

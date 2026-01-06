@@ -98,7 +98,8 @@
 		<!-- Products Grid -->
 		<section class="section products-catalog dark-section">
 			<div class="container">
-				<div class="products-grid-shop">
+				<div class="products-grid-shop" id="shop-products-container">
+					<!-- Products will be loaded here dynamically or fallback to static content -->
 					<!-- All-Season Tires -->
 					<article class="product-card-shop" data-category="all-season">
 						<div class="product-badge">Best Seller</div>
@@ -688,6 +689,7 @@
 		<script>
 			document.getElementById('year').textContent = new Date().getFullYear();
 		</script>
+		<script src="js/woocommerce.js" defer></script>
 		<script src="js/main.js" defer></script>
 	</footer>
 </body>

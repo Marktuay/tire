@@ -88,8 +88,10 @@ Modern, responsive website for GlobalTire automotive services with dark theme, s
 .
 ├── index.html              # Home page
 ├── about.html              # About page
-├── services.html           # Services page
+├── services.html           # Main Services page
+├── automotive-services.html # Detailed Automotive Services
 ├── shop.html               # Shop page
+├── product.html            # Product Details page
 ├── contact.html            # Contact page
 ├── css/
 │   ├── style.css           # Shared styles (dark theme, animations, responsive)
@@ -231,7 +233,31 @@ rm tmp.jpg
 
 ---
 
-## 📝 Notes
+## � WooCommerce Integration
+
+This project is configured to fetch products from a WordPress/WooCommerce site.
+
+### Configuration
+
+1.  Open `js/woocommerce.js`.
+2.  Locate `WC_CONFIG` at the top of the file.
+3.  Update `consumerKey` and `consumerSecret` with your WooCommerce API credentials.
+
+```javascript
+const WC_CONFIG = {
+    url: 'https://www.globaltireservices.com',
+    consumerKey: 'ck_YOUR_CONSUMER_KEY',     // REPLACE THIS
+    consumerSecret: 'cs_YOUR_CONSUMER_SECRET', // REPLACE THIS
+    endpoint: '/wp-json/wc/v3/products',
+    perPage: 4
+};
+```
+
+**Note:** For security reasons, do not commit your real API keys to a public repository. In a production environment, you should use a backend proxy to handle API requests.
+
+---
+
+## �📝 Notes
 
 - All images are currently PNG format for simplicity
 - Form submission is client-side only (no backend)
@@ -256,4 +282,4 @@ This is a mockup/demo project for GlobalTire.
 
 ---
 
-**Last Updated**: December 2025
+**Last Updated**: January 2026
