@@ -113,10 +113,67 @@ async function initProductPage(container) {
     try {
         const product = await fetchProductById(productId);
         renderSingleProduct(product, container);
+        
+        // Load Related Products
+        initRelatedProducts(productId);
+
     } catch (error) {
         console.error('WooCommerce: Failed to fetch product', error);
         container.innerHTML = '<p style="color:white; text-align:center;">Error loading product details.</p>';
     }
+}
+
+async function initRelatedProducts(currentProductId) {
+    const relatedContainer = document.getElementById('related-products-grid');
+    const relatedSection = document.getElementById('related-products-section');
+    
+    if (!relatedContainer || !relatedSection) return;
+
+    try {
+        // Fetch products (fetch mostly random/latest)
+        // We fetch slightly more to filter out the current one
+        let products = await fetchProducts(6); 
+        
+        // Filter out current product
+        products = products.filter(p => p.id != currentProductId).slice(0, 5); // Take max 5
+
+        if (products.length > 0) {
+            relatedSection.style.display = 'block';
+            renderRelatedProducts(products, relatedContainer);
+        }
+
+    } catch (error) {
+        console.warn('WooCommerce: Failed to fetch related products', error);
+    }
+}
+
+function renderRelatedProducts(products, container) {
+    container.innerHTML = '';
+    products.forEach(product => {
+         // Handle Image
+         const imageUrl = product.images && product.images.length > 0 
+         ? product.images[0].src 
+         : 'images/placeholder-tire.png';
+         
+         // Format Price
+         let priceHtml = product.price_html || `$${product.price}`;
+         // Simple strip of HTML for related text if it's simple
+         const tempPrice = document.createElement('div');
+         tempPrice.innerHTML = priceHtml;
+         // If it has del/ins, keep it, otherwise just use text
+         
+        const card = document.createElement('div');
+        card.className = 'related-product-card';
+        card.innerHTML = `
+            <a href="product.html?id=${product.id}" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; height: 100%;">
+                <img src="${imageUrl}" alt="${product.name}" loading="lazy">
+                <h4>${product.name}</h4>
+                <div class="related-product-price">${priceHtml}</div>
+                <span class="btn ghost small" style="margin-top: auto;">View</span>
+            </a>
+        `;
+        container.appendChild(card);
+    });
 }
 
 function renderSingleProduct(product, container) {

@@ -1,5 +1,122 @@
+// Functions are defined here but initialized inside DOMContentLoaded or called by specific init functions
+
+// Tire Finder Logic
+function initTireFinderLogic() {
+    const form = document.querySelector('.tire-finder');
+    if (!form) return;
+
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const resultsContainer = document.getElementById('tire-finder-results');
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.innerHTML;
+        
+        // Show loading state
+        submitBtn.innerHTML = '<span class="spinner" style="display:inline-block; width:1rem; height:1rem; border:2px solid #fff; border-radius:50%; border-top-color:transparent; animation:spin 1s linear infinite; margin-right:5px;"></span> Searching...';
+        submitBtn.disabled = true;
+        // Add spin animation if not present
+        if (!document.getElementById('spin-style')) {
+            const style = document.createElement('style');
+            style.id = 'spin-style';
+            style.innerHTML = '@keyframes spin { to { transform: rotate(360deg); } }';
+            document.head.appendChild(style);
+        }
+
+        resultsContainer.innerHTML = '';
+        resultsContainer.classList.remove('hidden');
+
+        try {
+            // Gathering criteria
+            const width = document.getElementById('tire-width').value;
+            const profile = document.getElementById('tire-profile').value;
+            const wheel = document.getElementById('tire-wheel').value;
+            
+            // We need to fetch products. Since we are in main.js and fetching logic is in woocommerce.js
+            // we will try to use the fetchProducts function if exposed, OR we can reimplement a simple one here.
+            // For robustness, let's reimplement a simple fetch here that hits the same endpoint.
+            
+            // Configuration (mirrors global config)
+            const WC_CONFIG = {
+                url: 'https://www.globaltireservices.com',
+                consumerKey: 'ck_958c162b7c6421798c910b8ee4dcaa18649f718f',
+                consumerSecret: 'cs_d9c3c63344a66c596b913a773d44ac69a9668a40',
+                endpoint: '/wp-json/wc/v3/products'
+            };
+
+            const requestUrl = new URL(WC_CONFIG.endpoint, WC_CONFIG.url);
+            requestUrl.searchParams.append('consumer_key', WC_CONFIG.consumerKey);
+            requestUrl.searchParams.append('consumer_secret', WC_CONFIG.consumerSecret);
+            requestUrl.searchParams.append('per_page', 20); // More results for client-side filtering
+
+            const response = await fetch(requestUrl.toString());
+            let products = [];
+            if (response.ok) {
+                products = await response.json();
+            } else {
+                console.warn('TireFinder: API call failed, falling back to static/empty');
+            }
+
+            // Filter Logic
+            const filteredProducts = products.filter(p => {
+                const name = p.name.toLowerCase();
+                const shortDesc = (p.short_description || '').toLowerCase();
+                // Simple search text aggregation
+                const text = name + ' ' + shortDesc;
+                
+                // Allow empty selection to match all (optional, but UI implies required)
+                // We use basic string inclusion for matching parts like "245", "45", "18"
+                // "R18" is common, so we check for that too.
+                const widthMatch = !width || text.includes(width);
+                const profileMatch = !profile || text.includes(profile) || text.includes('/' + profile);
+                const wheelMatch = !wheel || text.includes('r' + wheel) || text.includes(wheel);
+
+                return widthMatch && profileMatch && wheelMatch;
+            });
+
+            if (filteredProducts.length > 0) {
+                let html = '<div class="finder-results-grid">';
+                filteredProducts.forEach(p => {
+                     const imageUrl = p.images && p.images.length > 0 ? p.images[0].src : 'images/placeholder-tire.png';
+                     const priceHtml = p.price_html || `$${p.price}`;
+                     
+                     html += `
+                        <div class="finder-result-card">
+                            <img src="${imageUrl}" alt="${p.name}">
+                            <h4>${p.name}</h4>
+                            <span class="price">${priceHtml}</span>
+                            <a href="product.html?id=${p.id}" class="btn small primary">View</a>
+                        </div>
+                     `;
+                });
+                html += '</div>';
+                resultsContainer.innerHTML = html;
+            } else {
+                resultsContainer.innerHTML = `
+                    <div class="finder-no-results">
+                        <i class="bi bi-emoji-frown" style="font-size: 2rem; display: block; margin-bottom: 10px;"></i>
+                        <p>No tires found for <strong>${width || 'Any'}/${profile || 'Any'} R${wheel || 'Any'}</strong></p>
+                        <p style="font-size: 0.9rem; margin-top: 5px; opacity: 0.7;">Try specific sizes found in our catalog like 245/40 R18</p>
+                    </div>
+                `;
+            }
+
+        } catch (error) {
+            console.error(error);
+            resultsContainer.innerHTML = '<p class="finder-no-results">An error occurred while searching.</p>';
+        } finally {
+            submitBtn.innerHTML = originalBtnText;
+            submitBtn.disabled = false;
+        }
+    });
+}
+
+
 // Minimal JS for mobile menu and form validation
 document.addEventListener('DOMContentLoaded', function () {
+    // Initialize Tire Finder Logic
+    initTireFinderLogic();
+
   const btn = document.querySelector('.menu-toggle');
   const nav = document.getElementById('main-navigation');
 
