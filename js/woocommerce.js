@@ -43,7 +43,7 @@ async function initWooCommerceFetch() {
 
     // Different settings for Shop page vs Home page
     const isShopPage = !!shopContainer;
-    const limit = isShopPage ? 12 : 4; // Fetch more for shop page
+    const limit = isShopPage ? 100 : 4; // Fetch more for shop page
 
     // Check if we have valid keys (basic check)
     if (WC_CONFIG.consumerKey.includes('YOUR_CONSUMER_KEY')) {
@@ -60,7 +60,8 @@ async function initWooCommerceFetch() {
 
         if (products && products.length > 0) {
             if (isShopPage) {
-                renderShopProducts(products, container);
+                // Initialize Pagination for Shop Page
+                initShopPagination(products, container);
             } else {
                 renderProducts(products, container);
             }
@@ -274,6 +275,112 @@ function renderProducts(products, container) {
         
         container.appendChild(card);
     });
+}
+
+// Shop Pagination Logic
+let currentShopPage = 1;
+const itemsPerPage = 20;
+let shopProductsAll = [];
+
+function initShopPagination(products, container) {
+    shopProductsAll = products;
+    currentShopPage = 1;
+    renderShopPage(container);
+    renderPaginationControls();
+}
+
+function renderShopPage(container) {
+    const startIndex = (currentShopPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const pageProducts = shopProductsAll.slice(startIndex, endIndex);
+
+    renderShopProducts(pageProducts, container);
+    
+    // Scroll to top of products container
+    const shopSection = document.getElementById('shop-products-container');
+    if (shopSection) {
+        shopSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+function renderPaginationControls() {
+    const paginationContainer = document.getElementById('shop-pagination');
+    if (!paginationContainer) return;
+
+    paginationContainer.innerHTML = '';
+    const totalPages = Math.ceil(shopProductsAll.length / itemsPerPage);
+
+    if (totalPages <= 1) return;
+
+    // Helper for buttons
+    const createBtn = (html, page, isCurrent = false, isDisabled = false) => {
+        const btn = document.createElement('button');
+        // Active page uses primary style, others ghost
+        // We override min-width to make numbers look more uniform/square-ish
+        btn.className = isCurrent ? 'btn primary small' : 'btn ghost small';
+        btn.innerHTML = html;
+        btn.style.minWidth = '40px'; 
+        btn.style.padding = '0 10px';
+        
+        if (isDisabled) {
+            btn.disabled = true;
+            btn.style.opacity = '0.5';
+            btn.style.cursor = 'default';
+        } else if (!isCurrent) {
+            btn.onclick = () => {
+                currentShopPage = page;
+                renderShopPage(document.getElementById('shop-products-container'));
+                renderPaginationControls();
+            };
+        }
+        return btn;
+    };
+
+    // Prev Button
+    paginationContainer.appendChild(createBtn('<i class="bi bi-chevron-left"></i>', currentShopPage - 1, false, currentShopPage === 1));
+
+    // Page Numbers (1, 2, 3...)
+    // For large number of pages, we might want to truncate, but for ~5-10 pages, showing all is fine.
+    // If > 10 pages, we could do: 1, 2, ..., current-1, current, current+1, ..., last
+    
+    if (totalPages <= 7) {
+        // Show all
+        for (let i = 1; i <= totalPages; i++) {
+            paginationContainer.appendChild(createBtn(i, i, i === currentShopPage));
+        }
+    } else {
+        // Simple truncation logic: always show first, last, and window around current
+        const window = 1;
+        
+        // Always show 1
+        paginationContainer.appendChild(createBtn(1, 1, 1 === currentShopPage));
+        
+        if (currentShopPage - window > 2) {
+             const dots = document.createElement('span');
+             dots.innerText = '...';
+             dots.style.color = 'white';
+             dots.style.alignSelf = 'center';
+             paginationContainer.appendChild(dots);
+        }
+
+        for (let i = Math.max(2, currentShopPage - window); i <= Math.min(totalPages - 1, currentShopPage + window); i++) {
+             paginationContainer.appendChild(createBtn(i, i, i === currentShopPage));
+        }
+
+        if (currentShopPage + window < totalPages - 1) {
+             const dots = document.createElement('span');
+             dots.innerText = '...';
+             dots.style.color = 'white';
+             dots.style.alignSelf = 'center';
+             paginationContainer.appendChild(dots);
+        }
+
+        // Always show last
+        paginationContainer.appendChild(createBtn(totalPages, totalPages, totalPages === currentShopPage));
+    }
+
+    // Next Button
+    paginationContainer.appendChild(createBtn('<i class="bi bi-chevron-right"></i>', currentShopPage + 1, false, currentShopPage === totalPages));
 }
 
 function renderShopProducts(products, container) {

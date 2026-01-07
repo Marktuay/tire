@@ -1397,6 +1397,7 @@ body.modal-open {
   display: inline-block
 }
 .card-body h3 {
+  font-size: 1.15rem;
   margin: 0 0 8px
 }
 
@@ -3652,7 +3653,7 @@ body.modal-open {
 
 .product-info-shop h3 {
     color: #fff;
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     margin: 0 0 8px 0;
 }
 

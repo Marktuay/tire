@@ -47,7 +47,7 @@ function initTireFinderLogic() {
             const requestUrl = new URL(WC_CONFIG.endpoint, WC_CONFIG.url);
             requestUrl.searchParams.append('consumer_key', WC_CONFIG.consumerKey);
             requestUrl.searchParams.append('consumer_secret', WC_CONFIG.consumerSecret);
-            requestUrl.searchParams.append('per_page', 20); // More results for client-side filtering
+            requestUrl.searchParams.append('per_page', 100); // More results for client-side filtering
 
             const response = await fetch(requestUrl.toString());
             let products = [];
