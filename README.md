@@ -80,6 +80,16 @@ Modern, responsive website for GlobalTire automotive services with dark theme, s
 - **Hover Effects** - Cards, buttons, and links have smooth transitions
 - **Footer Icons** - All footer links include relevant SVG icons with hover animations
 
+### 🔧 Technical Architecture & WordPress Simulation
+
+The project implements a **Headless Commerce Simulation** to replicate the behavior of a WordPress/WooCommerce backend within a static environment.
+
+- **Mock REST API Integration**: Utilizes asynchronous JavaScript (`js/woocommerce.js`) to mimic WordPress REST API endpoints. This enables retrieval of product data (JSON objects) via `fetch` requests without a live server.
+- **Client-Side Dynamic Rendering**:
+  - **Tire Finder Engine**: A custom filtering logic (`js/main.js`) that queries local datasets to return search results dynamically within a modal interface, emulating server-side query processing.
+  - **Related Products Algorithm**: Automates cross-selling by dynamically filtering and injecting product variants into the DOM based on current view context.
+- **Scalable Component Logic**: Key interface elements (like the Footer and Navigation) are standardized to facilitate future template conversion into PHP/WordPress themes.
+
 ---
 
 ## 📁 Project Structure
