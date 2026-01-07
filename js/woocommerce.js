@@ -277,13 +277,53 @@ function renderProducts(products, container) {
     });
 }
 
-// Shop Pagination Logic
+// Shop Pagination & Filtering Logic
 let currentShopPage = 1;
 const itemsPerPage = 20;
 let shopProductsAll = [];
+let shopProductsFiltered = [];
 
 function initShopPagination(products, container) {
     shopProductsAll = products;
+    shopProductsFiltered = products;
+    currentShopPage = 1;
+    
+    initCategoryFilters(container);
+    renderShopPage(container);
+    renderPaginationControls();
+}
+
+function initCategoryFilters(container) {
+    const buttons = document.querySelectorAll('.category-btn');
+    buttons.forEach(btn => {
+        btn.onclick = () => {
+             // Update UI
+             buttons.forEach(b => b.classList.remove('active'));
+             btn.classList.add('active');
+             
+             // Filter
+             const category = btn.getAttribute('data-category');
+             filterShopProducts(category, container);
+        };
+    });
+}
+
+function filterShopProducts(category, container) {
+    if (category === 'all') {
+        shopProductsFiltered = shopProductsAll;
+    } else {
+        shopProductsFiltered = shopProductsAll.filter(p => {
+             // Robust check against all categories in string format or slug
+             if (!p.categories) return false;
+             // We check if any of the product's categories match the selected filter (by slug or name)
+             // "offroad" might be "off-road" in api, so we check inclusion
+             return p.categories.some(c => 
+                c.slug.toLowerCase().includes(category) || 
+                c.name.toLowerCase().includes(category)
+             );
+        });
+    }
+    
     currentShopPage = 1;
     renderShopPage(container);
     renderPaginationControls();
@@ -292,9 +332,13 @@ function initShopPagination(products, container) {
 function renderShopPage(container) {
     const startIndex = (currentShopPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    const pageProducts = shopProductsAll.slice(startIndex, endIndex);
+    const pageProducts = shopProductsFiltered.slice(startIndex, endIndex);
 
-    renderShopProducts(pageProducts, container);
+    if (pageProducts.length === 0) {
+        container.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 50px; color: var(--muted);"><h3>No products found in this category</h3><p>Try selecting another category or viewing all items.</p></div>';
+    } else {
+        renderShopProducts(pageProducts, container);
+    }
     
     // Scroll to top of products container
     const shopSection = document.getElementById('shop-products-container');
@@ -308,10 +352,10 @@ function renderPaginationControls() {
     if (!paginationContainer) return;
 
     paginationContainer.innerHTML = '';
-    const totalPages = Math.ceil(shopProductsAll.length / itemsPerPage);
+    const totalPages = Math.ceil(shopProductsFiltered.length / itemsPerPage);
 
     if (totalPages <= 1) return;
-
+    
     // Helper for buttons
     const createBtn = (html, page, isCurrent = false, isDisabled = false) => {
         const btn = document.createElement('button');
@@ -339,20 +383,13 @@ function renderPaginationControls() {
     // Prev Button
     paginationContainer.appendChild(createBtn('<i class="bi bi-chevron-left"></i>', currentShopPage - 1, false, currentShopPage === 1));
 
-    // Page Numbers (1, 2, 3...)
-    // For large number of pages, we might want to truncate, but for ~5-10 pages, showing all is fine.
-    // If > 10 pages, we could do: 1, 2, ..., current-1, current, current+1, ..., last
-    
+    // Page Numbers logic
     if (totalPages <= 7) {
-        // Show all
         for (let i = 1; i <= totalPages; i++) {
             paginationContainer.appendChild(createBtn(i, i, i === currentShopPage));
         }
     } else {
-        // Simple truncation logic: always show first, last, and window around current
         const window = 1;
-        
-        // Always show 1
         paginationContainer.appendChild(createBtn(1, 1, 1 === currentShopPage));
         
         if (currentShopPage - window > 2) {
@@ -375,7 +412,6 @@ function renderPaginationControls() {
              paginationContainer.appendChild(dots);
         }
 
-        // Always show last
         paginationContainer.appendChild(createBtn(totalPages, totalPages, totalPages === currentShopPage));
     }
 
