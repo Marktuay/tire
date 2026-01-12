@@ -12,7 +12,7 @@
 .shop-hero-content h1 {
     font-size: 3rem;
     margin: 0 0 16px 0;
-    color: #fff;
+    color: #111;
 }
 
 .shop-hero-content .lead {
@@ -46,9 +46,9 @@
 .category-btn {
     padding: 12px 28px;
     background: linear-gradient(180deg, var(--surface), transparent);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 24px;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(0, 0, 0, 0.9);
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
@@ -58,7 +58,7 @@
 .category-btn:hover {
     border-color: var(--accent);
     background: rgba(255, 204, 0, 0.1);
-    color: #fff;
+    color: #111;
 }
 
 .category-btn.active {
@@ -83,7 +83,7 @@
     background: linear-gradient(180deg, var(--surface), transparent);
     border-radius: 16px;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
     position: relative;
     display: flex;
@@ -93,7 +93,7 @@
 .product-card-shop:hover {
     transform: translateY(-8px);
     box-shadow: 0 12px 40px rgba(255, 204, 0, 0.15);
-    border-color: rgba(255, 204, 0, 0.2);
+    border: 1px solid rgba(255, 204, 0, 0.2);
 }
 
 .product-badge {
@@ -137,7 +137,7 @@
 }
 
 .product-info-shop h3 {
-    color: #fff;
+    color: #111;
     font-size: 1rem;
     margin: 0 0 8px 0;
 }
@@ -166,7 +166,7 @@
 }
 
 .product-features li {
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(0, 0, 0, 0.8);
     font-size: 0.9rem;
     padding: 6px 0;
     padding-left: 24px;
@@ -187,12 +187,12 @@
     justify-content: space-between;
     align-items: center;
     padding-top: 16px;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.05);
     gap: 10px;
 }
 
 .product-price {
-    color: #fff;
+    color: #111;
     font-size: 1.25rem;
     font-weight: 700;
     margin: 0;
@@ -220,7 +220,7 @@
     background: linear-gradient(180deg, var(--surface), transparent);
     padding: 32px;
     border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.05);
     text-align: center;
     transition: all 0.3s ease;
 }
@@ -228,7 +228,7 @@
 .shop-benefit-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 12px 40px rgba(255, 204, 0, 0.15);
-    border-color: rgba(255, 204, 0, 0.2);
+    border: 1px solid rgba(255, 204, 0, 0.2);
 }
 
 .benefit-icon-shop {
@@ -244,7 +244,7 @@
 }
 
 .shop-benefit-card h3 {
-    color: #fff;
+    color: #111;
     font-size: 1.2rem;
     margin: 0 0 12px 0;
 }
@@ -270,7 +270,7 @@
 .tire-finder-content h2 {
     font-size: 2.5rem;
     margin: 0 0 16px 0;
-    color: #fff;
+    color: #111;
 }
 
 .tire-finder-content>p {
@@ -290,7 +290,7 @@
     background: linear-gradient(180deg, var(--surface), transparent);
     padding: 32px;
     border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .finder-option h3 {
@@ -329,7 +329,7 @@
     padding: 24px;
     background: linear-gradient(180deg, var(--surface), transparent);
     border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .included-icon {
@@ -340,7 +340,7 @@
 }
 
 .included-item h3 {
-    color: #fff;
+    color: #111;
     font-size: 1.1rem;
     margin: 0 0 6px 0;
 }

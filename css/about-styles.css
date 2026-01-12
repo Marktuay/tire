@@ -12,7 +12,7 @@
 .about-hero-content h1 {
     font-size: 3rem;
     margin: 0 0 16px 0;
-    color: #fff;
+    color: #111;
 }
 
 .about-hero-content .lead {
@@ -44,7 +44,7 @@
 
 .story-content .intro-text {
     font-size: 1.2rem;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(0, 0, 0, 0.9);
     margin-bottom: 40px;
     line-height: 1.7;
 }
@@ -148,7 +148,7 @@
 }
 
 .value-card h3 {
-    color: #fff;
+    color: #111;
     font-size: 1.3rem;
     margin: 0 0 12px 0;
 }
@@ -205,13 +205,13 @@
 }
 
 .why-item h3 {
-    color: #fff;
+    color: #111;
     font-size: 1.5rem;
     margin: 20px 0 16px 0;
 }
 
 .why-item>p {
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(0, 0, 0, 0.85);
     line-height: 1.7;
     margin-bottom: 20px;
 }
@@ -255,7 +255,7 @@
 
 .team-content .intro-text {
     font-size: 1.2rem;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(0, 0, 0, 0.9);
     margin-bottom: 40px;
     line-height: 1.7;
 }
@@ -306,7 +306,7 @@
 }
 
 .expertise-list strong {
-    color: #fff;
+    color: #111;
 }
 
 .team-image {
@@ -365,13 +365,13 @@
 }
 
 .quality-item p {
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(0, 0, 0, 0.85);
     line-height: 1.7;
     margin-bottom: 20px;
 }
 
 .brands-showcase h4 {
-    color: #fff;
+    color: #111;
     font-size: 1.1rem;
     margin: 20px 0 12px 0;
 }
@@ -414,7 +414,7 @@
 }
 
 .warranty-list strong {
-    color: #fff;
+    color: #111;
 }
 
 .quality-image img {
@@ -458,7 +458,7 @@
 }
 
 .community-item p {
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(0, 0, 0, 0.85);
     line-height: 1.7;
     margin: 0;
 }
@@ -472,7 +472,7 @@
 }
 
 .testimonial p {
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(0, 0, 0, 0.9);
     font-style: italic;
     margin: 0 0 12px 0;
     line-height: 1.6;
@@ -500,7 +500,7 @@
 .cta-content h2 {
     font-size: 2.5rem;
     margin: 0 0 20px 0;
-    color: #fff;
+    color: #111;
 }
 
 .cta-text {
@@ -545,7 +545,7 @@
 
 .info-item strong {
     display: block;
-    color: #fff;
+    color: #111;
     font-size: 1.1rem;
     margin-bottom: 4px;
 }
