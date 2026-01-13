@@ -2,15 +2,36 @@
 // api-proxy.php
 // Proxy script to hide WooCommerce API credentials
 
-// Allow access from any origin (configure as needed for production)
-header("Access-Control-Allow-Origin: *");
+// 1. SECURITY: Block non-GET requests
+if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+    http_response_code(405); // Method Not Allowed
+    exit(json_encode(['error' => 'Method not allowed. Read-only access.']));
+}
+
+// 2. SECURITY: CORS Control (Strict)
+// Add your local dev URL and production URL here
+$allowed_origins = [
+    'https://www.globaltireservices.com',
+    'http://localhost:8000',  // Python server
+    'http://127.0.0.1:5500'   // VS Code Live Server
+];
+
+$origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
+if (in_array($origin, $allowed_origins)) {
+    header("Access-Control-Allow-Origin: $origin");
+} else {
+    // Optional: Allow public access if you want or restrict strict
+    // header("Access-Control-Allow-Origin: *"); 
+}
+
 header("Content-Type: application/json; charset=UTF-8");
 
 // Configuration - Credentials are safe here on the server
 $baseUrl = 'https://www.globaltireservices.com';
 $baseEndpoint = '/wp-json/wc/v3/products';
+// Consider moving these to a separate config file outside web root if possible
 $consumerKey = 'ck_958c162b7c6421798c910b8ee4dcaa18649f718f';
-$consumerSecret = 'cs_d9c3c63344a66c596b913a773d44ac69a9668a40'; // Now hidden from client
+$consumerSecret = 'cs_d9c3c63344a66c596b913a773d44ac69a9668a40'; 
 
 // Get all query parameters sent by the frontend
 $params = $_GET;

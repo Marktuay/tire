@@ -4109,3 +4109,75 @@ body.modal-open {
     margin-top: 10px;
     padding: 15px;
 }
+
+/* =========================================
+   Skeleton Loading Animation
+   ========================================= */
+.skeleton {
+  background: #f0f0f0;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 4px;
+}
+
+/* Dark mode adjustment - Bottom part (Text/Button) using #c4c4c4 */
+.dark-card .skeleton {
+  background: #c4c4c4;
+  background: linear-gradient(90deg, #c4c4c4 25%, #e0e0e0 50%, #c4c4c4 75%);
+  background-size: 200% 100%;
+}
+
+/* Dark mode adjustment - Top part (Image) using #f7f7f7 */
+.dark-card .skeleton.skeleton-image {
+  background: #f7f7f7;
+  background: linear-gradient(90deg, #f7f7f7 25%, #ffffff 50%, #f7f7f7 75%);
+  background-size: 200% 100%;
+}
+
+@keyframes skeleton-loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Skeleton Card Structure */
+.skeleton-card {
+  background: white;
+  border: 1px solid #eee;
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.dark-card.skeleton-card {
+  background: #c4c4c4; /* Match your dark card bg */
+  border-color: #f2f1ed;
+}
+
+.skeleton-image {
+  width: 100%;
+  aspect-ratio: 4/3;
+  display: block;
+}
+
+.skeleton-body {
+  padding: 1.5rem;
+}
+
+.skeleton-text {
+  height: 1rem;
+  margin-bottom: 0.5rem;
+  width: 80%;
+}
+
+.skeleton-text.short {
+  width: 40%;
+}
+
+.skeleton-btn {
+  height: 2.5rem;
+  width: 100px;
+  margin-top: 1rem;
+  border-radius: 4px;
+}

@@ -42,18 +42,24 @@ async function initWooCommerceFetch() {
     // Different settings for Shop page vs Home page
     const isShopPage = !!shopContainer;
     const limit = isShopPage ? 100 : 4; // Fetch more for shop page
+    
+    // For Home Page (index.html), user wants "Most Viewed" -> We use 'popularity' (Total Sales) as a standard proxy
+    // For Shop Page, default to 'date' (Newest)
+    const orderBy = isShopPage ? 'date' : 'popularity';
 
-    // Check if we have valid keys (basic check)
-    if (WC_CONFIG.consumerKey.includes('YOUR_CONSUMER_KEY')) {
-        console.warn('WooCommerce: API Consumer Key/Secret not configured. Using static content.');
+    // Check if endpoint is configured
+    if (!WC_CONFIG.endpoint) {
+        console.warn('WooCommerce: API Endpoint not configured.');
         return; 
     }
 
     try {
-        // Show loading state (console only to avoid UI flicker if fast)
+        // Show loading state (Skeleton UI)
+        renderSkeleton(container, isShopPage ? 8 : 4);
+        
         console.log('WooCommerce: Fetching products...');
         
-        const products = await fetchProducts(limit);
+        const products = await fetchProducts(limit, orderBy);
         console.log(`WooCommerce: Fetched ${products.length} products`);
 
         if (products && products.length > 0) {
@@ -72,13 +78,15 @@ async function initWooCommerceFetch() {
     }
 }
 
-async function fetchProducts(perPage = 4) {
+async function fetchProducts(perPage = 4, orderBy = 'date', order = 'desc') {
     // Note: In a production environment, never expose keys in client-side code.
     // Use a proxy server. This is for demonstration/local dev only.
     
     // Updated to use local PHP proxy
     const requestUrl = new URL(WC_CONFIG.endpoint, window.location.href);
     requestUrl.searchParams.append('per_page', perPage);
+    requestUrl.searchParams.append('orderby', orderBy);
+    requestUrl.searchParams.append('order', order);
 
     const response = await fetch(requestUrl.toString());
     if (!response.ok) {
@@ -219,6 +227,28 @@ function renderSingleProduct(product, container) {
             </div>
         </div>
     `;
+}
+
+/**
+ * Renders skeleton loading cards
+ * @param {HTMLElement} container - The element to append skeletons to
+ * @param {number} count - Number of skeletons to show
+ */
+function renderSkeleton(container, count) {
+    let html = '';
+    for (let i = 0; i < count; i++) {
+        html += `
+        <article class="card dark-card skeleton-card">
+            <div class="skeleton skeleton-image"></div>
+            <div class="skeleton-body">
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-text short"></div>
+                <div class="skeleton skeleton-btn"></div>
+            </div>
+        </article>
+        `;
+    }
+    container.innerHTML = html;
 }
 
 function renderProducts(products, container) {
