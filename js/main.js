@@ -36,17 +36,12 @@ function initTireFinderLogic() {
             // we will try to use the fetchProducts function if exposed, OR we can reimplement a simple one here.
             // For robustness, let's reimplement a simple fetch here that hits the same endpoint.
             
-            // Configuration (mirrors global config)
+            // Configuration (mirrors global config) to use Remote Proxy
             const WC_CONFIG = {
-                url: 'https://www.globaltireservices.com',
-                consumerKey: 'ck_958c162b7c6421798c910b8ee4dcaa18649f718f',
-                consumerSecret: 'cs_d9c3c63344a66c596b913a773d44ac69a9668a40',
-                endpoint: '/wp-json/wc/v3/products'
+                endpoint: 'https://www.globaltireservices.com/api-proxy.php'
             };
 
-            const requestUrl = new URL(WC_CONFIG.endpoint, WC_CONFIG.url);
-            requestUrl.searchParams.append('consumer_key', WC_CONFIG.consumerKey);
-            requestUrl.searchParams.append('consumer_secret', WC_CONFIG.consumerSecret);
+            const requestUrl = new URL(WC_CONFIG.endpoint, window.location.href);
             requestUrl.searchParams.append('per_page', 100); // More results for client-side filtering
 
             const response = await fetch(requestUrl.toString());

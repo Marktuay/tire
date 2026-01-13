@@ -4,10 +4,8 @@
  */
 
 const WC_CONFIG = {
-    url: 'https://www.globaltireservices.com',
-    consumerKey: 'ck_958c162b7c6421798c910b8ee4dcaa18649f718f',     // REPLACE WITH REAL KEY
-    consumerSecret: 'cs_d9c3c63344a66c596b913a773d44ac69a9668a40', // REPLACE WITH REAL SECRET
-    endpoint: '/wp-json/wc/v3/products',
+    // Pointing to the live server proxy so you can work locally without a local PHP server
+    endpoint: 'https://www.globaltireservices.com/api-proxy.php',
     perPage: 4
 };
 
@@ -78,9 +76,8 @@ async function fetchProducts(perPage = 4) {
     // Note: In a production environment, never expose keys in client-side code.
     // Use a proxy server. This is for demonstration/local dev only.
     
-    const requestUrl = new URL(WC_CONFIG.endpoint, WC_CONFIG.url);
-    requestUrl.searchParams.append('consumer_key', WC_CONFIG.consumerKey);
-    requestUrl.searchParams.append('consumer_secret', WC_CONFIG.consumerSecret);
+    // Updated to use local PHP proxy
+    const requestUrl = new URL(WC_CONFIG.endpoint, window.location.href);
     requestUrl.searchParams.append('per_page', perPage);
 
     const response = await fetch(requestUrl.toString());
@@ -91,9 +88,8 @@ async function fetchProducts(perPage = 4) {
 }
 
 async function fetchProductById(id) {
-    const requestUrl = new URL(`${WC_CONFIG.endpoint}/${id}`, WC_CONFIG.url);
-    requestUrl.searchParams.append('consumer_key', WC_CONFIG.consumerKey);
-    requestUrl.searchParams.append('consumer_secret', WC_CONFIG.consumerSecret);
+    const requestUrl = new URL(WC_CONFIG.endpoint, window.location.href);
+    requestUrl.searchParams.append('id', id);
 
     const response = await fetch(requestUrl.toString());
     if (!response.ok) {

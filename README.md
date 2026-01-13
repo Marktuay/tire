@@ -247,23 +247,36 @@ rm tmp.jpg
 
 This project is configured to fetch products from a WordPress/WooCommerce site.
 
-### Configuration
+### 🔧 Backend & API Configuration (Secure Proxy)
 
-1.  Open `js/woocommerce.js`.
-2.  Locate `WC_CONFIG` at the top of the file.
-3.  Update `consumerKey` and `consumerSecret` with your WooCommerce API credentials.
+This project uses a **PHP Proxy (`api-proxy.php`)** to communicate securely with the WooCommerce API. This prevents exposing your API keys (Consumer Key/Secret) in the frontend code.
 
+#### 1. Server-Side Setup (Production)
+The `api-proxy.php` file must be uploaded to the root of your public web server (e.g., `https://www.globaltireservices.com/api-proxy.php`).
+
+This file contains your sensitive credentials:
+```php
+// api-proxy.php on the server
+$consumerKey = 'ck_...';    // Your REAL Key
+$consumerSecret = 'cs_...'; // Your REAL Secret
+```
+
+#### 2. Client-Side Setup (Local Development)
+You can work on the frontend (`index.html`, `js/*.js`) locally on your machine. The Javascript files are configured to point to the **remote** proxy on the live server.
+
+**`js/woocommerce.js` & `js/main.js` configuration:**
 ```javascript
 const WC_CONFIG = {
-    url: 'https://www.globaltireservices.com',
-    consumerKey: 'ck_YOUR_CONSUMER_KEY',     // REPLACE THIS
-    consumerSecret: 'cs_YOUR_CONSUMER_SECRET', // REPLACE THIS
-    endpoint: '/wp-json/wc/v3/products',
-    perPage: 4
+    // Points to the live server proxy
+    endpoint: 'https://www.globaltireservices.com/api-proxy.php',
+    // ...
 };
 ```
 
-**Note:** For security reasons, do not commit your real API keys to a public repository. In a production environment, you should use a backend proxy to handle API requests.
+**Benefits:**
+- **Security:** Keys are never sent to the browser.
+- **CORS:** The proxy handles Cross-Origin headers, allowing local development against the live API.
+- **Convenience:** No need to run a local PHP server; just open the HTML file.
 
 ---
 
