@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>My Addresses — GlobalTire</title>
+		<meta name="description" content="Manage your billing and shipping addresses." />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link rel="icon" type="image/png" sizes="32x32" href="https://www.globaltireservices.com/wp-content/uploads/2025/08/icon-32x32-1.png#5213">
+	</head>
+	<body class="theme-dark">
+		<header class="site-header dark">
+			<div class="container header-inner">
+			   <a class="logo" href="index.html">
+				   <img src="images/logo1.png" alt="GlobalTire logo" />
+			   </a>
+			<nav class="nav-desktop" aria-label="Main navigation">
+				<a href="index.html">Home</a>
+				<a href="about.html">About Us</a>
+				<a href="automotive-services.html">Services</a>
+				<a href="shop.html">Shop</a>
+				<a href="contact.html" class="btn ghost">Contact Us</a>
+			</nav>
+
+			<div class="header-right">
+				<div class="header-icons" aria-hidden="false">
+					<a href="#" class="social" aria-label="Facebook" title="Facebook"><i class="bi bi-facebook" aria-hidden="true"></i></a>
+					<a href="#" class="social" aria-label="Instagram" title="Instagram"><i class="bi bi-instagram" aria-hidden="true"></i></a>
+					<a href="#" class="social" aria-label="LinkedIn" title="LinkedIn"><i class="bi bi-linkedin" aria-hidden="true"></i></a>
+					</div>
+					<button class="icon-btn" aria-label="Search">
+						<i class="bi bi-search" aria-hidden="true"></i>
+					</button>
+					<a href="login.html" class="icon-btn" aria-label="Account">
+						<i class="bi bi-person" aria-hidden="true"></i>
+					</a>
+					<a href="#" class="icon-btn" aria-label="Cart">
+						<i class="bi bi-cart" aria-hidden="true"></i>
+					</a>
+					<button class="menu-toggle" aria-expanded="false" aria-controls="main-navigation" aria-label="Open menu">
+						<span class="hamburger">
+							<span class="bar bar1"></span>
+							<span class="bar bar2"></span>
+							<span class="bar bar3"></span>
+						</span>
+					</button>
+			</div>
+			</div>
+			<nav id="main-navigation" class="main-nav" aria-label="Main menu" hidden>
+				<div class="container">
+					<a href="index.html">Home</a>
+					<a href="about.html">About Us</a>
+					<a href="automotive-services.html">Services</a>
+					<a href="shop.html">Shop</a>
+					<a href="contact.html" class="cta">Contact Us</a>
+				</div>
+			</nav>
+		</header>
+
+		<main>
+            <section class="section dark-section" style="padding-top: 120px; min-height: 80vh;">
+                <div class="container">
+                    <div class="dashboard-container" style="display: grid; grid-template-columns: 250px 1fr; gap: 40px;">
+                        
+                        <!-- Sidebar -->
+                        <aside class="dashboard-sidebar">
+                            <div class="user-brief" style="margin-bottom: 30px; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                                <div style="width: 60px; height: 60px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; color: #000; margin-bottom: 10px;">
+                                    <span id="user-initials">U</span>
+                                </div>
+                                <h4 id="sidebar-username" style="margin: 0;">User</h4>
+                                <p id="sidebar-email" style="opacity: 0.7; font-size: 0.9rem; margin: 5px 0 0;">...</p>
+                            </div>
+
+                            <nav class="dashboard-nav">
+                                <ul style="list-style: none; padding: 0; margin: 0;">
+                                    <li style="margin-bottom: 10px;">
+                                        <a href="dashboard.html" class="dash-link" style="display: block; padding: 12px 15px; color: #fff; text-decoration: none; opacity: 0.8; transition: all 0.2s;">
+                                            <i class="bi bi-speedometer2" style="margin-right: 10px;"></i> Dashboard
+                                        </a>
+                                    </li>
+                                    <li style="margin-bottom: 10px;">
+                                        <a href="orders.html" class="dash-link" style="display: block; padding: 12px 15px; color: #fff; text-decoration: none; opacity: 0.8; transition: all 0.2s;">
+                                            <i class="bi bi-box-seam" style="margin-right: 10px;"></i> Orders
+                                        </a>
+                                    </li>
+                                    <li style="margin-bottom: 10px;">
+                                        <a href="addresses.html" class="dash-link active" style="display: block; padding: 12px 15px; background: var(--panel); border-radius: 6px; color: #000; text-decoration: none; font-weight: 600;">
+                                            <i class="bi bi-geo-alt" style="margin-right: 10px;"></i> Addresses
+                                        </a>
+                                    </li>
+                                    <li style="margin-bottom: 10px;">
+                                        <a href="account-details.html" class="dash-link" style="display: block; padding: 12px 15px; color: #fff; text-decoration: none; opacity: 0.8; transition: all 0.2s;">
+                                            <i class="bi bi-person-gear" style="margin-right: 10px;"></i> Account Details
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" id="dash-logout" style="display: block; padding: 12px 15px; color: #ff6b6b; text-decoration: none; transition: all 0.2s;">
+                                            <i class="bi bi-box-arrow-left" style="margin-right: 10px;"></i> Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </aside>
+
+                        <!-- Content Area -->
+                        <div class="dashboard-content">
+                            <h2 style="margin-bottom: 20px;">My Addresses</h2>
+                            <p class="text-muted" style="margin-bottom: 30px;">The following addresses will be used on the checkout page by default.</p>
+                            
+                            <div class="addresses-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                                <!-- Billing Address -->
+                                <div class="address-card" style="background: var(--panel); padding: 25px; border-radius: 12px; color: #111;">
+                                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 15px;">
+                                        <h3 style="margin: 0;">Billing Address</h3>
+                                        <!-- <a href="#" class="btn small ghost" style="padding: 5px 10px;">Edit</a> -->
+                                    </div>
+                                    <div id="billing-address-content" style="font-style: italic; opacity: 0.7;">
+                                        Loading...
+                                    </div>
+                                </div>
+
+                                <!-- Shipping Address -->
+                                <div class="address-card" style="background: var(--panel); padding: 25px; border-radius: 12px; color: #111;">
+                                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 15px;">
+                                        <h3 style="margin: 0;">Shipping Address</h3>
+                                        <!-- <a href="#" class="btn small ghost" style="padding: 5px 10px;">Edit</a> -->
+                                    </div>
+                                    <div id="shipping-address-content" style="font-style: italic; opacity: 0.7;">
+                                        Loading...
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+		</main>
+
+		<footer id="contacto" class="site-footer dark-footer">
+			<div class="container footer-inner">
+					<div class="footer-col">
+						<h4>Quick Contact</h4>
+						<p>Global Auto Center</p>
+                        <p>831 Harrison Avenue, New Jersey, 07032</p>
+					</div>
+			</div>
+		</footer>
+
+        <script src="js/main.js"></script>
+        <script src="js/auth.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', async () => {
+                const userStr = localStorage.getItem('gt_user');
+                if (!userStr) {
+                    window.location.href = 'login.html';
+                    return;
+                }
+                const user = JSON.parse(userStr);
+                
+                // Set sidebar info
+                const displayName = user.first_name || user.display_name || user.username || 'User';
+                document.getElementById('sidebar-username').innerText = displayName;
+                document.getElementById('sidebar-email').innerText = user.email || '';
+                
+                if (user.avatar_url) {
+                    const avatarContainer = document.getElementById('user-initials').parentElement;
+                    avatarContainer.style.background = 'transparent';
+                    avatarContainer.innerHTML = `<img src="${user.avatar_url}" alt="Avatar" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`;
+                } else {
+                    document.getElementById('user-initials').innerText = displayName.charAt(0).toUpperCase();
+                }
+
+                // Logout Handler
+                const logoutBtn = document.getElementById('dash-logout');
+                if(logoutBtn) {
+                     logoutBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        localStorage.removeItem('gt_user');
+                        window.location.href = 'login.html';
+                     });
+                 }
+
+                // Fetch Addresses
+                try {
+                    const response = await fetch(`https://www.globaltireservices.com/auth-proxy.php?action=get_address&user_id=${user.id}`);
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        // Render Billing
+                        const b = result.billing; // array of fields
+                        // If empty
+                        if (!b || (!b.address_1 && !b.city)) {
+                             document.getElementById('billing-address-content').innerHTML = '<p>You have not set up this type of address yet.</p>';
+                        } else {
+                            // Format Address
+                            const html = `
+                                <p style="font-style: normal; line-height: 1.6;">
+                                    <strong>${b.first_name} ${b.last_name}</strong><br>
+                                    ${b.company ? b.company + '<br>' : ''}
+                                    ${b.address_1}<br>
+                                    ${b.address_2 ? b.address_2 + '<br>' : ''}
+                                    ${b.city}, ${b.state} ${b.postcode}<br>
+                                    ${b.country}<br>
+                                    ${b.phone ? '<br><i class="bi bi-telephone"></i> ' + b.phone : ''}
+                                    ${b.email ? '<br><i class="bi bi-envelope"></i> ' + b.email : ''}
+                                </p>
+                            `;
+                            document.getElementById('billing-address-content').innerHTML = html;
+                        }
+
+                        // Render Shipping
+                        const s = result.shipping;
+                         if (!s || (!s.address_1 && !s.city)) {
+                             document.getElementById('shipping-address-content').innerHTML = '<p>You have not set up this type of address yet.</p>';
+                        } else {
+                            const html = `
+                                <p style="font-style: normal; line-height: 1.6;">
+                                    <strong>${s.first_name} ${s.last_name}</strong><br>
+                                    ${s.company ? s.company + '<br>' : ''}
+                                    ${s.address_1}<br>
+                                    ${s.address_2 ? s.address_2 + '<br>' : ''}
+                                    ${s.city}, ${s.state} ${s.postcode}<br>
+                                    ${s.country}
+                                </p>
+                            `;
+                            document.getElementById('shipping-address-content').innerHTML = html;
+                        }
+
+                    } else {
+                         document.getElementById('billing-address-content').innerText = 'Error loading addresses.';
+                         document.getElementById('shipping-address-content').innerText = 'Error loading addresses.';
+                    }
+                } catch (e) {
+                    console.error(e);
+                    document.getElementById('billing-address-content').innerText = 'Connection error.';
+                    document.getElementById('shipping-address-content').innerText = 'Connection error.';
+                }
+            });
+        </script>
+	</body>
+</html>

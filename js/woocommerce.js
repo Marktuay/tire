@@ -115,6 +115,9 @@ async function initProductPage(container) {
         return;
     }
 
+    // Render Skeleton Loading for Single Product
+    renderSingleProductSkeleton(container);
+
     try {
         const product = await fetchProductById(productId);
         renderSingleProduct(product, container);
@@ -134,6 +137,10 @@ async function initRelatedProducts(currentProductId) {
     
     if (!relatedContainer || !relatedSection) return;
 
+    // Show section and skeletons immediately
+    relatedSection.style.display = 'block';
+    renderRelatedSkeleton(relatedContainer, 5);
+
     try {
         // Fetch products (fetch mostly random/latest)
         // We fetch slightly more to filter out the current one
@@ -143,13 +150,32 @@ async function initRelatedProducts(currentProductId) {
         products = products.filter(p => p.id != currentProductId).slice(0, 5); // Take max 5
 
         if (products.length > 0) {
-            relatedSection.style.display = 'block';
             renderRelatedProducts(products, relatedContainer);
+        } else {
+            // No products found, hide the section
+            relatedSection.style.display = 'none';
         }
 
     } catch (error) {
         console.warn('WooCommerce: Failed to fetch related products', error);
+        // Error, hide the section
+        relatedSection.style.display = 'none';
     }
+}
+
+function renderRelatedSkeleton(container, count) {
+    let html = '';
+    for (let i = 0; i < count; i++) {
+        html += `
+        <div class="related-product-card" style="display: flex; flex-direction: column; height: 100%;">
+            <div class="skeleton skeleton-image" style="height: 120px; margin-bottom: 10px; border-radius: 6px;"></div>
+            <div class="skeleton skeleton-text" style="width: 90%; margin-bottom: 5px;"></div>
+            <div class="skeleton skeleton-text" style="width: 60%; margin-bottom: 15px;"></div>
+            <div class="skeleton skeleton-btn" style="width: 100%; height: 35px; margin-top: auto;"></div>
+        </div>
+        `;
+    }
+    container.innerHTML = html;
 }
 
 function renderRelatedProducts(products, container) {
@@ -179,6 +205,31 @@ function renderRelatedProducts(products, container) {
         `;
         container.appendChild(card);
     });
+}
+
+function renderSingleProductSkeleton(container) {
+    container.innerHTML = `
+        <div class="product-detail-wrapper">
+            <div class="product-detail-image">
+                <div class="skeleton skeleton-image" style="width: 100%; max-width: 350px; height: 350px; border-radius: 12px;"></div>
+            </div>
+            <div class="product-detail-info" style="width: 100%;">
+                <div class="skeleton skeleton-text" style="height: 2.5rem; width: 70%; margin-bottom: 15px;"></div>
+                <div class="skeleton skeleton-text" style="height: 1.2rem; width: 30%; margin-bottom: 25px;"></div>
+                <div class="skeleton skeleton-text" style="height: 2.5rem; width: 40%; margin-bottom: 25px;"></div>
+                
+                <div class="skeleton skeleton-text" style="margin-bottom: 10px;"></div>
+                <div class="skeleton skeleton-text" style="margin-bottom: 10px;"></div>
+                <div class="skeleton skeleton-text" style="width: 90%; margin-bottom: 10px;"></div>
+                <div class="skeleton skeleton-text" style="width: 60%; margin-bottom: 40px;"></div>
+                
+                <div style="display: flex; gap: 15px; margin-top: 30px;">
+                    <div class="skeleton skeleton-btn" style="width: 150px; height: 50px;"></div>
+                    <div class="skeleton skeleton-btn" style="width: 150px; height: 50px;"></div>
+                </div>
+            </div>
+        </div>
+    `;
 }
 
 function renderSingleProduct(product, container) {

@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>My Account — GlobalTire</title>
+		<meta name="description" content="Manage your account, orders and addresses." />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+		<link rel="icon" type="image/png" sizes="32x32" href="https://www.globaltireservices.com/wp-content/uploads/2025/08/icon-32x32-1.png#5213">
+	</head>
+	<body class="theme-dark">
+		<header class="site-header dark">
+			<div class="container header-inner">
+			   <a class="logo" href="index.html">
+				   <img src="images/logo1.png" alt="GlobalTire logo" />
+			   </a>
+			<nav class="nav-desktop" aria-label="Main navigation">
+				<a href="index.html">Home</a>
+				<a href="about.html">About Us</a>
+				<a href="automotive-services.html">Services</a>
+				<a href="shop.html">Shop</a>
+				<a href="contact.html" class="btn ghost">Contact Us</a>
+			</nav>
+
+			<div class="header-right">
+				<div class="header-icons" aria-hidden="false">
+					<a href="#" class="social" aria-label="Facebook" title="Facebook"><i class="bi bi-facebook" aria-hidden="true"></i></a>
+					<a href="#" class="social" aria-label="Instagram" title="Instagram"><i class="bi bi-instagram" aria-hidden="true"></i></a>
+					<a href="#" class="social" aria-label="LinkedIn" title="LinkedIn"><i class="bi bi-linkedin" aria-hidden="true"></i></a>
+					</div>
+					<button class="icon-btn" aria-label="Search">
+						<i class="bi bi-search" aria-hidden="true"></i>
+					</button>
+					<a href="login.html" class="icon-btn" aria-label="Account">
+						<i class="bi bi-person" aria-hidden="true"></i>
+					</a>
+					<a href="#" class="icon-btn" aria-label="Cart">
+						<i class="bi bi-cart" aria-hidden="true"></i>
+					</a>
+					<button class="menu-toggle" aria-expanded="false" aria-controls="main-navigation" aria-label="Open menu">
+						<span class="hamburger">
+							<span class="bar bar1"></span>
+							<span class="bar bar2"></span>
+							<span class="bar bar3"></span>
+						</span>
+					</button>
+			</div>
+			</div>
+			<nav id="main-navigation" class="main-nav" aria-label="Main menu" hidden>
+				<div class="container">
+					<a href="index.html">Home</a>
+					<a href="about.html">About Us</a>
+					<a href="automotive-services.html">Services</a>
+					<a href="shop.html">Shop</a>
+					<a href="contact.html" class="cta">Contact Us</a>
+				</div>
+			</nav>
+		</header>
+
+		<main>
+            <section class="section dark-section" style="padding-top: 120px; min-height: 80vh;">
+                <div class="container">
+                    <div class="dashboard-container" style="display: grid; grid-template-columns: 250px 1fr; gap: 40px;">
+                        
+                        <!-- Sidebar -->
+                        <aside class="dashboard-sidebar">
+                            <div class="user-brief" style="margin-bottom: 30px; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                                <div style="width: 60px; height: 60px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; color: #000; margin-bottom: 10px;">
+                                    <span id="user-initials">U</span>
+                                </div>
+                                <h4 id="sidebar-username" style="margin: 0;">User</h4>
+                                <p id="sidebar-email" style="opacity: 0.7; font-size: 0.9rem; margin: 5px 0 0;">user@example.com</p>
+                            </div>
+
+                            <nav class="dashboard-nav">
+                                <ul style="list-style: none; padding: 0; margin: 0;">
+                                    <li style="margin-bottom: 10px;">
+                                        <a href="#" class="dash-link active" data-tab="dashboard" style="display: block; padding: 12px 15px; background: var(--panel); border-radius: 6px; color: #000; text-decoration: none; font-weight: 600;">
+                                            <i class="bi bi-speedometer2" style="margin-right: 10px;"></i> Dashboard
+                                        </a>
+                                    </li>
+                                    <li style="margin-bottom: 10px;">
+                                        <a href="orders.html" class="dash-link" style="display: block; padding: 12px 15px; color: #fff; text-decoration: none; opacity: 0.8; transition: all 0.2s;">
+                                            <i class="bi bi-box-seam" style="margin-right: 10px;"></i> Orders
+                                        </a>
+                                    </li>
+                                    <li style="margin-bottom: 10px;">
+                                        <a href="addresses.html" class="dash-link" style="display: block; padding: 12px 15px; color: #fff; text-decoration: none; opacity: 0.8; transition: all 0.2s;">
+                                            <i class="bi bi-geo-alt" style="margin-right: 10px;"></i> Addresses
+                                        </a>
+                                    </li>
+                                    <li style="margin-bottom: 10px;">
+                                        <a href="account-details.html" class="dash-link" style="display: block; padding: 12px 15px; color: #fff; text-decoration: none; opacity: 0.8; transition: all 0.2s;">
+                                            <i class="bi bi-person-gear" style="margin-right: 10px;"></i> Account Details
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" id="dash-logout" style="display: block; padding: 12px 15px; color: #ff6b6b; text-decoration: none; transition: all 0.2s;">
+                                            <i class="bi bi-box-arrow-left" style="margin-right: 10px;"></i> Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </aside>
+
+                        <!-- Content Area -->
+                        <div class="dashboard-content">
+                            <!-- Dashboard Tab -->
+                            <div id="tab-dashboard" class="dash-tab-content">
+                                <h2 style="margin-bottom: 20px;">Dashboard</h2>
+                                <p style="font-size: 1.1rem; opacity: 0.9;">Hello <strong id="welcome-name">User</strong>,</p>
+                                <p style="opacity: 0.8; margin-bottom: 30px;">From your account dashboard you can view your recent orders, manage your shipping and billing addresses, and edit your password and account details.</p>
+
+                                <div class="dashboard-cards" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                                    <div class="dash-card" style="background: var(--panel); padding: 30px; border-radius: 12px; color: #111;">
+                                        <i class="bi bi-bag-check" style="font-size: 2rem; color: var(--accent); margin-bottom: 15px; display: block;"></i>
+                                        <h3 style="margin: 0 0 10px;">Recent Orders</h3>
+                                        <p style="font-size: 0.9rem; margin-bottom: 20px;">Check the status of your tire orders.</p>
+                                        <a href="orders.html" class="btn small primary">View Orders</a>
+                                    </div>
+
+                                    <div class="dash-card" style="background: var(--panel); padding: 30px; border-radius: 12px; color: #111;">
+                                        <i class="bi bi-geo" style="font-size: 2rem; color: var(--accent); margin-bottom: 15px; display: block;"></i>
+                                        <h3 style="margin: 0 0 10px;">Addresses</h3>
+                                        <p style="font-size: 0.9rem; margin-bottom: 20px;">Manage your shipping and billing locations.</p>
+                                        <a href="addresses.html" class="btn small ghost" style="border-color: #ddd; color: #111;">Manage</a>
+                                    </div>
+
+                                    <div class="dash-card" style="background: var(--panel); padding: 30px; border-radius: 12px; color: #111;">
+                                        <i class="bi bi-person-gear" style="font-size: 2rem; color: var(--accent); margin-bottom: 15px; display: block;"></i>
+                                        <h3 style="margin: 0 0 10px;">Account Details</h3>
+                                        <p style="font-size: 0.9rem; margin-bottom: 20px;">Update your password and account details.</p>
+                                        <a href="account-details.html" class="btn small ghost" style="border-color: #ddd; color: #111;">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+		</main>
+
+		<footer id="contacto" class="site-footer dark-footer">
+			<div class="container footer-inner">
+					<div class="footer-col">
+						<h4>Quick Contact</h4>
+						<form class="footer-form" action="#" method="post" novalidate>
+							<div class="form-grid">
+								<div class="col">
+									<label for="footer-first" class="sr-only">First Name</label>
+									<input id="footer-first" name="first" type="text" placeholder="First Name" required />
+								</div>
+								<div class="col">
+									<label for="footer-last" class="sr-only">Last Name</label>
+									<input id="footer-last" name="last" type="text" placeholder="Last Name" required />
+								</div>
+								<div class="col">
+									<label for="footer-phone" class="sr-only">Phone</label>
+									<input id="footer-phone" name="phone" type="tel" placeholder="Phone" />
+								</div>
+								<div class="col">
+									<label for="footer-email" class="sr-only">Email</label>
+									<input id="footer-email" name="email" type="email" placeholder="Email" required />
+								</div>
+							</div>
+							<label for="footer-message" class="sr-only">Message</label>
+							<textarea id="footer-message" name="message" rows="4" placeholder="Message" required></textarea>
+							<div class="form-actions">
+								<button type="submit" class="btn small">Send</button>
+							</div>
+							<p class="form-note muted">We'll respond shortly. We don't share your information.</p>
+						</form>
+					</div>
+					<div class="footer-col footer-links-section">
+						<!-- Links populated by JS or static -->
+						<div class="footer-links-grid">
+							<div class="link-column">
+								<h4>USEFUL LINKS</h4>
+								<nav class="footer-nav">
+									<a href="index.html">
+										<span>Home</span>
+									</a>
+									<a href="about.html">
+										<span>About Us</span>
+									</a>
+									<a href="services.html">
+										<span>Services</span>
+									</a>
+									<a href="shop.html">
+										<span>Shop</span>
+									</a>
+									<a href="contact.html">
+										<span>Contact Us</span>
+									</a>
+								</nav>
+							</div>
+							<div class="link-column">
+								<h4>Accepted Payment Methods</h4>
+								<div class="payment-methods">
+									<i class="bi bi-credit-card-2-front" title="Visa"></i>
+									<i class="bi bi-credit-card" title="Mastercard"></i>
+									<i class="bi bi-paypal" title="PayPal"></i>
+									<i class="bi bi-cash-coin" title="Cash"></i>
+								</div>
+								
+								<h4 style="margin-top: 20px;">Follow Us</h4>
+								<div class="social-links">
+									<a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+									<a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+									<a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+								</div>
+							</div>
+							<div class="link-column">
+								<h4>CONTACT US</h4>
+								<address class="footer-address">
+									<p><i class="bi bi-geo-alt"></i> 831 Harrison Avenue, New Jersey, 07032</p>
+									<p><i class="bi bi-telephone"></i> <a href="tel:+12019911200">+201 991 1200</a></p>
+									<p><i class="bi bi-envelope"></i> <a href="mailto:globalautocenterinc@gmail.com">globalautocenterinc@gmail.com</a></p>
+									<p><i class="bi bi-clock"></i> Mon-Sat: 8:00 AM - 6:00 PM</p>
+								</address>
+							</div>
+						</div>
+					</div>
+			</div>
+			<div class="footer-bottom">
+				<div class="container">
+					<p>&copy; 2026 GlobalTire. All rights reserved.</p>
+				</div>
+			</div>
+		</footer>
+
+        <script src="js/main.js"></script>
+        <script src="js/auth.js"></script>
+        <script>
+            // Inline Dashboard Logic
+            document.addEventListener('DOMContentLoaded', () => {
+                const userStr = localStorage.getItem('gt_user');
+                if (!userStr) {
+                    window.location.href = 'login.html';
+                    return;
+                }
+                const user = JSON.parse(userStr);
+                
+                // Populate User Info
+                const displayName = user.first_name || user.display_name || user.username || 'User';
+                const email = user.email || 'No Email';
+                
+                document.getElementById('welcome-name').innerText = displayName;
+                document.getElementById('sidebar-username').innerText = displayName;
+                document.getElementById('sidebar-email').innerText = email;
+                
+                // Avatar or Initials
+                if (user.avatar_url) {
+                    const avatarContainer = document.getElementById('user-initials').parentElement;
+                    avatarContainer.style.background = 'transparent';
+                    avatarContainer.innerHTML = `<img src="${user.avatar_url}" alt="Avatar" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`;
+                } else {
+                    const initials = displayName.charAt(0).toUpperCase();
+                    document.getElementById('user-initials').innerText = initials;
+                }
+
+                // Logout Handler specific to dashboard
+                document.getElementById('dash-logout').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    localStorage.removeItem('gt_user');
+                    localStorage.removeItem('gt_login_time');
+                    window.location.href = 'login.html';
+                });
+            });
+        </script>
+	</body>
+</html>

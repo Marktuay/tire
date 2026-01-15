@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>Account Details — GlobalTire</title>
+		<meta name="description" content="Edit account details and change password." />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link rel="icon" type="image/png" sizes="32x32" href="https://www.globaltireservices.com/wp-content/uploads/2025/08/icon-32x32-1.png#5213">
+	</head>
+	<body class="theme-dark">
+		<header class="site-header dark">
+			<div class="container header-inner">
+			   <a class="logo" href="index.html">
+				   <img src="images/logo1.png" alt="GlobalTire logo" />
+			   </a>
+			<nav class="nav-desktop" aria-label="Main navigation">
+				<a href="index.html">Home</a>
+				<a href="about.html">About Us</a>
+				<a href="automotive-services.html">Services</a>
+				<a href="shop.html">Shop</a>
+				<a href="contact.html" class="btn ghost">Contact Us</a>
+			</nav>
+
+			<div class="header-right">
+				<div class="header-icons" aria-hidden="false">
+					<a href="#" class="social" aria-label="Facebook" title="Facebook"><i class="bi bi-facebook" aria-hidden="true"></i></a>
+					<a href="#" class="social" aria-label="Instagram" title="Instagram"><i class="bi bi-instagram" aria-hidden="true"></i></a>
+					<a href="#" class="social" aria-label="LinkedIn" title="LinkedIn"><i class="bi bi-linkedin" aria-hidden="true"></i></a>
+					</div>
+					<button class="icon-btn" aria-label="Search">
+						<i class="bi bi-search" aria-hidden="true"></i>
+					</button>
+					<a href="login.html" class="icon-btn" aria-label="Account">
+						<i class="bi bi-person" aria-hidden="true"></i>
+					</a>
+					<a href="#" class="icon-btn" aria-label="Cart">
+						<i class="bi bi-cart" aria-hidden="true"></i>
+					</a>
+					<button class="menu-toggle" aria-expanded="false" aria-controls="main-navigation" aria-label="Open menu">
+						<span class="hamburger">
+							<span class="bar bar1"></span>
+							<span class="bar bar2"></span>
+							<span class="bar bar3"></span>
+						</span>
+					</button>
+			</div>
+			</div>
+			<nav id="main-navigation" class="main-nav" aria-label="Main menu" hidden>
+				<div class="container">
+					<a href="index.html">Home</a>
+					<a href="about.html">About Us</a>
+					<a href="automotive-services.html">Services</a>
+					<a href="shop.html">Shop</a>
+					<a href="contact.html" class="cta">Contact Us</a>
+				</div>
+			</nav>
+		</header>
+
+		<main>
+            <section class="section dark-section" style="padding-top: 120px; min-height: 80vh;">
+                <div class="container">
+                    <div class="dashboard-container" style="display: grid; grid-template-columns: 250px 1fr; gap: 40px;">
+                        
+                        <!-- Sidebar -->
+                        <aside class="dashboard-sidebar">
+                            <div class="user-brief" style="margin-bottom: 30px; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                                <div style="width: 60px; height: 60px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; color: #000; margin-bottom: 10px;">
+                                    <span id="user-initials">U</span>
+                                </div>
+                                <h4 id="sidebar-username" style="margin: 0;">User</h4>
+                                <p id="sidebar-email" style="opacity: 0.7; font-size: 0.9rem; margin: 5px 0 0;">...</p>
+                            </div>
+
+                            <nav class="dashboard-nav">
+                                <ul style="list-style: none; padding: 0; margin: 0;">
+                                    <li style="margin-bottom: 10px;">
+                                        <a href="dashboard.html" class="dash-link" style="display: block; padding: 12px 15px; color: #fff; text-decoration: none; opacity: 0.8; transition: all 0.2s;">
+                                            <i class="bi bi-speedometer2" style="margin-right: 10px;"></i> Dashboard
+                                        </a>
+                                    </li>
+                                    <li style="margin-bottom: 10px;">
+                                        <a href="orders.html" class="dash-link" style="display: block; padding: 12px 15px; color: #fff; text-decoration: none; opacity: 0.8; transition: all 0.2s;">
+                                            <i class="bi bi-box-seam" style="margin-right: 10px;"></i> Orders
+                                        </a>
+                                    </li>
+                                    <li style="margin-bottom: 10px;">
+                                        <a href="addresses.html" class="dash-link" style="display: block; padding: 12px 15px; color: #fff; text-decoration: none; opacity: 0.8; transition: all 0.2s;">
+                                            <i class="bi bi-geo-alt" style="margin-right: 10px;"></i> Addresses
+                                        </a>
+                                    </li>
+                                    <li style="margin-bottom: 10px;">
+                                        <a href="account-details.html" class="dash-link active" style="display: block; padding: 12px 15px; background: var(--panel); border-radius: 6px; color: #000; text-decoration: none; font-weight: 600;">
+                                            <i class="bi bi-person-gear" style="margin-right: 10px;"></i> Account Details
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" id="dash-logout" style="display: block; padding: 12px 15px; color: #ff6b6b; text-decoration: none; transition: all 0.2s;">
+                                            <i class="bi bi-box-arrow-left" style="margin-right: 10px;"></i> Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </aside>
+
+                        <!-- Content Area -->
+                        <div class="dashboard-content">
+                            <h2 style="margin-bottom: 20px;">Account Details</h2>
+                            <div class="auth-message" style="display:none; margin-bottom: 20px; padding: 15px; border-radius: 6px;"></div>
+                            
+                            <form id="account-details-form" class="auth-form" style="max-width: 600px;">
+                                <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                                    <div class="form-group">
+                                        <label for="account_first_name">First Name *</label>
+                                        <input type="text" id="account_first_name" name="first_name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="account_last_name">Last Name *</label>
+                                        <input type="text" id="account_last_name" name="last_name" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="account_display_name">Display Name *</label>
+                                    <input type="text" id="account_display_name" name="display_name" required>
+                                    <span style="font-style:italic; font-size: 0.8rem; opacity: 0.7;">This will be how your name will be displayed in the account section and in reviews</span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="account_email">Email Address *</label>
+                                    <input type="email" id="account_email" name="email" required>
+                                </div>
+
+                                <fieldset style="margin-top: 40px; border: 1px solid rgba(255,255,255,0.1); padding: 20px; border-radius: 8px;">
+                                    <legend style="padding: 0 10px; font-weight: 600;">Password Change</legend>
+                                    <div class="form-group">
+                                        <label for="password_current">Current Password (leave blank to leave unchanged)</label>
+                                        <input type="password" id="password_current" name="password_current" autocomplete="off">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password_new">New Password (leave blank to leave unchanged)</label>
+                                        <input type="password" id="password_new" name="password_new" autocomplete="off">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password_confirm">Confirm New Password</label>
+                                        <input type="password" id="password_confirm" name="password_confirm" autocomplete="off">
+                                    </div>
+                                </fieldset>
+
+                                <button type="submit" class="btn primary" style="margin-top: 30px;">Save Changes</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+		</main>
+
+		<footer id="contacto" class="site-footer dark-footer">
+			<div class="container footer-inner">
+					<div class="footer-col">
+						<h4>Quick Contact</h4>
+						<p>Global Auto Center</p>
+                        <p>831 Harrison Avenue, New Jersey, 07032</p>
+					</div>
+			</div>
+		</footer>
+
+        <script src="js/main.js"></script>
+        <script src="js/auth.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', async () => {
+                const userStr = localStorage.getItem('gt_user');
+                if (!userStr) {
+                    window.location.href = 'login.html';
+                    return;
+                }
+                const localUser = JSON.parse(userStr);
+                
+                // Set sidebar info
+                const displayName = localUser.first_name || localUser.display_name || localUser.username || 'User';
+                document.getElementById('sidebar-username').innerText = displayName;
+                document.getElementById('sidebar-email').innerText = localUser.email || '';
+                
+                 if (localUser.avatar_url) {
+                    const avatarContainer = document.getElementById('user-initials').parentElement;
+                    avatarContainer.style.background = 'transparent';
+                    avatarContainer.innerHTML = `<img src="${localUser.avatar_url}" alt="Avatar" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`;
+                } else {
+                    document.getElementById('user-initials').innerText = displayName.charAt(0).toUpperCase();
+                }
+
+                // Logout Handler
+                const logoutBtn = document.getElementById('dash-logout');
+                if(logoutBtn) {
+                     logoutBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        localStorage.removeItem('gt_user');
+                        window.location.href = 'login.html';
+                     });
+                 }
+
+                // Fetch Details
+                try {
+                    const response = await fetch(`https://www.globaltireservices.com/auth-proxy.php?action=get_details&user_id=${localUser.id}`);
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        const u = result.user;
+                        document.getElementById('account_first_name').value = u.first_name || '';
+                        document.getElementById('account_last_name').value = u.last_name || '';
+                        document.getElementById('account_display_name').value = u.display_name || '';
+                        document.getElementById('account_email').value = u.email || '';
+                    }
+                } catch (e) {
+                    console.error('Initial load error', e);
+                }
+
+                // Handle Save
+                const form = document.getElementById('account-details-form');
+                form.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const msgDiv = document.querySelector('.auth-message');
+                    msgDiv.style.display = 'none';
+                    const btn = form.querySelector('button[type="submit"]');
+                    const originalText = btn.innerText;
+                    
+                    // Simple Validation
+                    const pNew = document.getElementById('password_new').value;
+                    const pConfirm = document.getElementById('password_confirm').value;
+                    const pCurrent = document.getElementById('password_current').value;
+
+                    if (pNew && pNew !== pConfirm) {
+                        showMsg('New passwords do not match.', 'error');
+                        return;
+                    }
+                    if (pNew && !pCurrent) {
+                        showMsg('Please enter current password to set a new one.', 'error');
+                        return;
+                    }
+
+                    btn.disabled = true;
+                    btn.innerText = 'Saving...';
+
+                    const formData = {
+                        user_id: localUser.id,
+                        first_name: document.getElementById('account_first_name').value,
+                        last_name: document.getElementById('account_last_name').value,
+                        display_name: document.getElementById('account_display_name').value,
+                        email: document.getElementById('account_email').value,
+                        password_current: pCurrent,
+                        password_new: pNew
+                    };
+
+                    try {
+                        const res = await fetch('https://www.globaltireservices.com/auth-proxy.php?action=update_details', {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify(formData)
+                        });
+                        const data = await res.json();
+                        
+                        if (data.success) {
+                            showMsg(data.message, 'success');
+                            // Update local storage user
+                            if (data.user) {
+                                localStorage.setItem('gt_user', JSON.stringify(data.user));
+                                // Update sidebar immediately
+                                const newName = data.user.first_name || data.user.display_name;
+                                document.getElementById('sidebar-username').innerText = newName;
+                                
+                                if (data.user.avatar_url) {
+                                     const initialSpan = document.getElementById('user-initials');
+                                     if(initialSpan) {
+                                          const parent = initialSpan.parentElement;
+                                          parent.style.background = 'transparent';
+                                          parent.innerHTML = `<img src="${data.user.avatar_url}" alt="Avatar" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`;
+                                     } else {
+                                         // It might already be an image, try to find img
+                                         // But since the parent has no ID, we rely on the implementation detail that it's the only one there.
+                                         // For simplicity in this context, we can just reload or let it be.
+                                         // But let's try to update the image src if it exists.
+                                         const sidebarImg = document.querySelector('.user-brief img');
+                                         if(sidebarImg) sidebarImg.src = data.user.avatar_url;
+                                     }
+                                } else {
+                                     // Fallback if avatar removed (unlikely case here)
+                                     // document.getElementById('user-initials').innerText = newName.charAt(0).toUpperCase();
+                                }
+                                
+                                // Reset password fields
+                                document.getElementById('password_current').value = '';
+                                document.getElementById('password_new').value = '';
+                                document.getElementById('password_confirm').value = '';
+                            }
+                        } else {
+                            showMsg(data.message, 'error');
+                        }
+                    } catch (err) {
+                        showMsg('Connection failed.', 'error');
+                    } finally {
+                        btn.disabled = false;
+                        btn.innerText = originalText;
+                    }
+                });
+
+                function showMsg(text, type) {
+                    const msgDiv = document.querySelector('.auth-message');
+                    msgDiv.style.display = 'block';
+                    msgDiv.innerText = text;
+                    if(type === 'success') {
+                        msgDiv.style.background = 'rgba(76, 175, 80, 0.1)';
+                        msgDiv.style.border = '1px solid #4CAF50';
+                        msgDiv.style.color = '#4CAF50';
+                    } else {
+                        msgDiv.style.background = 'rgba(244, 67, 54, 0.1)';
+                        msgDiv.style.border = '1px solid #F44336';
+                        msgDiv.style.color = '#F44336';
+                    }
+                }
+            });
+        </script>
+	</body>
+</html>

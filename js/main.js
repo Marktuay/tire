@@ -398,3 +398,59 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 4000);
   }
 });
+
+// Auth Tabs Logic
+document.addEventListener('DOMContentLoaded', function() {
+    const tabs = document.querySelectorAll('.auth-tab');
+    if (tabs.length === 0) return;
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Deactivate all
+            tabs.forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.auth-form-container').forEach(c => c.classList.remove('active'));
+
+            // Activate clicked
+            tab.classList.add('active');
+            const targetId = tab.getAttribute('data-target');
+            const target = document.getElementById(targetId);
+            if (target) target.classList.add('active');
+        });
+    });
+});
+
+// Cart Badge Logic
+function updateCartCount() {
+    const cartIcon = document.querySelector('a[aria-label="Cart"]');
+    if (!cartIcon) return;
+
+    // Get count
+    let count = 0;
+    try {
+        const cartStr = localStorage.getItem('gt_cart');
+        if (cartStr) {
+            const cart = JSON.parse(cartStr);
+            if (Array.isArray(cart)) {
+                count = cart.reduce((acc, item) => acc + (item.quantity || 1), 0);
+            }
+        }
+    } catch (e) {
+        console.error('Error parsing cart', e);
+    }
+
+    // Remove existing badge if any
+    let badge = cartIcon.querySelector('.cart-badge');
+    if (!badge) {
+        badge = document.createElement('span');
+        badge.className = 'cart-badge';
+        badge.style.cssText = 'position: absolute; top: -8px; right: -8px; background: var(--accent, #DA291C); color: #fff; font-size: 0.7rem; font-weight: bold; min-width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; border-radius: 50%; padding: 2px; line-height: 1; border: 1px solid #fff;';
+        
+        cartIcon.style.position = 'relative';
+        cartIcon.appendChild(badge);
+    }
+    
+    badge.innerText = count;
+    badge.style.display = 'flex';
+}
+
+document.addEventListener('DOMContentLoaded', updateCartCount);
