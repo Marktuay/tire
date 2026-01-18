@@ -2,9 +2,15 @@
 // api-proxy.php
 // Proxy script to hide WooCommerce API credentials
 
-// 1. SECURITY: Block non-GET requests
+// 1. SECURITY: Read-only proxy (supports OPTIONS for CORS preflight)
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(204);
+    exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     http_response_code(405); // Method Not Allowed
+    header("Content-Type: application/json; charset=UTF-8");
     exit(json_encode(['error' => 'Method not allowed. Read-only access.']));
 }
 
@@ -13,12 +19,15 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 $allowed_origins = [
     'https://www.globaltireservices.com',
     'http://localhost:8000',  // Python server
+    'http://localhost:8080',  // PHP built-in server (recommended)
     'http://127.0.0.1:5500'   // VS Code Live Server
 ];
 
 $origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
 if (in_array($origin, $allowed_origins)) {
     header("Access-Control-Allow-Origin: $origin");
+    header('Access-Control-Allow-Methods: GET, OPTIONS');
+    header('Access-Control-Allow-Headers: Content-Type');
 } else {
     // Optional: Allow public access if you want or restrict strict
     // header("Access-Control-Allow-Origin: *"); 

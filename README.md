@@ -2,7 +2,12 @@
 
 Modern, responsive website for GlobalTire automotive services with dark theme, smooth animations, and professional design.
 
-**Live Demo:** Start a local server with `python3 -m http.server 8000` from this project folder.
+**Live Demo (local):** Start a local server from this project folder.
+
+- Recommended (supports `api-proxy.php`): `php -S localhost:8080`
+- Then open: `http://localhost:8080/index.html`
+
+Note: opening files via `file://` will prevent products from loading.
 
 ---
 
@@ -62,9 +67,9 @@ Modern, responsive website for GlobalTire automotive services with dark theme, s
 
 7. **Footer**
    - Contact form with validation
-   - Useful links with SVG icons
+   - **Modern 5-column layout**: Menu, Account, Categories, Support, and Get in Touch.
    - Contact information with business hours
-   - Social media links
+   - **Social media & Payment Trust Badges**: Integration with Bootstrap Icons and payment method logos.
 
 ### Interactive Features
 
@@ -92,6 +97,39 @@ The project implements a **Headless Commerce Simulation** to replicate the behav
 
 ---
 
+## ⚠️ Critical Development Notes & Pitfalls (For AI Agents & Developers)
+
+This section documents technical challenges and architectural decisions made to resolve specific environment issues. **Read this before modifying core logic.**
+
+### 1. Environment-Aware API Endpoints
+**Inconvenience**: Local development environments like VS Code "Live Server" (ports 5500/5501) do not execute PHP.
+**Solution**: `js/woocommerce.js` and `js/auth.js` use a ternary operator to detect the environment. 
+- If port is `5500` or `5501`, they bypass the local `api-proxy.php` and connect directly to the production proxy at `https://www.globaltireservices.com/api-proxy.php`.
+- **Pitfall**: If the remote server updates its CORS policy or proxy location, local development will break.
+
+### 2. Authentication & Session Management
+**Inconvenience**: `auth.js` was historically missing from several top-level HTML files, causing login/register failures on specific pages.
+**Solution**: Ensure `<script src="js/auth.js"></script>` is present in ALL template files.
+- **Pitfall**: Since this is a static site pretending to be dynamic, user state must be checked manually on DOM load across all pages.
+
+### 3. Dynamic Footer & Caching
+**Inconvenience**: The footer is injected via `js/footer.js` using `fetch('footer.html')`. Browsers aggressively cache this file, making UI changes invisible to users.
+**Solution**: 
+- The fetch call uses a timestamp: `fetch('footer.html?v=' + Date.now())`.
+- CSS and JS links in HTML files use versioning (e.g., `css/style.css?v=1.1`) to force refreshes.
+- **Pitfall**: When adding new columns to the footer, ensure `css/footer.css` is updated *and* old footer styles in the monolithic `css/style.css` are removed to avoid layout breakage.
+
+### 4. CSS Monolithic Conflicts
+**Inconvenience**: `css/style.css` contains nearly 4000 lines and often includes legacy/redundant footer styles that override the modular `css/footer.css`.
+**Solution**: New footer logic relies on `display: grid` with 5 columns. Ensure media queries in `style.css` do not force `flex-direction: column` or `grid-template-columns: 1fr` prematurely on desktop.
+- **Pitfall**: Always check for `!important` or high-specificity selectors in `style.css` before styling new components.
+
+### 5. WooCommerce Secure Proxy
+**Inconvenience**: Native WooCommerce REST API requires OAuth or Basic Auth headers which cannot be safely stored in frontend JS.
+**Solution**: All requests MUST go through `api-proxy.php` (Server) or the remote equivalent (Local Dev). Do not attempt to add `consumer_key` to fetch calls directly.
+
+---
+
 ## 📁 Project Structure
 
 ```
@@ -110,8 +148,11 @@ The project implements a **Headless Commerce Simulation** to replicate the behav
 │   ├── services-styles.css
 │   └── shop-styles.css
 ├── js/
-│   └── main.js             # Mobile menu, smooth scroll, footer form validation
+│   ├── footer.js           # Footer injection + footer form validation
+│   ├── main.js             # Global UI (menu, modals, etc.)
+│   └── woocommerce.js      # Product fetch + rendering (Home/Shop/Product pages)
 ├── images/                 # Logos, product/service images, favicon
+├── api-proxy.php           # Local/dev WooCommerce proxy (PHP)
 ├── scripts/
 │   ├── download_and_optimize_images.sh
 │   └── generate_variants.sh

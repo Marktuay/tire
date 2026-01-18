@@ -5,7 +5,8 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
 		<title>Automotive Services — Globa Auto Center</title>
 		<meta name="description" content="Automotive services in New Jersey. Oil changes, brake repair, tire services, engine diagnostics, and more." />
-		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/style.css?v=1.1" />
+		<link rel="stylesheet" href="css/footer.css?v=1.1" />
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -321,91 +322,11 @@
 		</main>
 
 		<footer id="contacto" class="site-footer dark-footer">
-			<div class="container footer-inner">
-				<div class="footer-col">
-					<h4>Quick Contact</h4>
-					<form class="footer-form" action="#" method="post" novalidate>
-						<div class="form-grid">
-							<div class="col">
-								<label for="footer-first" class="sr-only">First Name</label>
-								<input id="footer-first" name="first" type="text" placeholder="First Name" required />
-							</div>
-							<div class="col">
-								<label for="footer-last" class="sr-only">Last Name</label>
-								<input id="footer-last" name="last" type="text" placeholder="Last Name" required />
-							</div>
-							<div class="col">
-								<label for="footer-phone" class="sr-only">Phone</label>
-								<input id="footer-phone" name="phone" type="tel" placeholder="Phone" />
-							</div>
-							<div class="col">
-								<label for="footer-email" class="sr-only">Email</label>
-								<input id="footer-email" name="email" type="email" placeholder="Email" required />
-							</div>
-						</div>
-						<label for="footer-message" class="sr-only">Message</label>
-						<textarea id="footer-message" name="message" rows="4" placeholder="Message" required></textarea>
-						<div class="form-actions">
-							<button type="submit" class="btn small">Send</button>
-						</div>
-						<p class="form-note muted">We'll respond shortly. We don't share your information.</p>
-					</form>
-				</div>
-				<div class="footer-col footer-links-section">
-					<h4>USEFUL LINKS</h4>
-					<div class="footer-links-grid">
-						<div class="links-column">
-							<a href="index.html">Home</a>
-							<a href="shop.html">Shop</a>
-							<a href="about.html">About Us</a>
-							<a href="automotive-services.html">Services</a>
-							<a href="contact.html">Contact</a>
-						</div>
-						<div class="links-column">
-							<a href="#">Privacy Policy</a>
-							<a href="#">Terms &amp; Conditions</a>
-							<a href="#">Shipping &amp; Returns</a>
-							<a href="#">Support</a>
-							<a href="#">Site Map</a>
-						</div>
-						<div class="links-column contact-info">
-							<p><strong>Phone:</strong> <a href="tel:+12019911200">+1 (201) 991 1200</a></p>
-							<p><strong>Email:</strong> globalautocenterinc@gmail.com</p>
-							<p><strong>Address:</strong> 831 Harrison Avenue New Jersey, 07032</p>
-							<p class="hours">Monday to Friday: 8:00 am – 6:00 pm</p>
-							<p class="hours">Saturday: 8:00 am – 5:00 pm</p>
-							<p class="hours">Sunday: with appointment only</p>
-						</div>
-					</div>
-				</div>
-			</div>
+		<!-- Footer content will be injected by footer.js -->
+	</footer>
 
-			<div class="footer-bottom">
-				<div class="container footer-bottom-inner">
-					<div class="payment-methods">
-						<h4>Accepted Payment Methods</h4>
-						<div class="payment-icons">
-							<img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg" alt="Visa" width="50" height="30">
-							<img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/MasterCard_Logo.svg" alt="Mastercard" width="50" height="30">
-							<img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/American_Express_logo_%282018%29.svg" alt="American Express" width="50" height="30">
-							<img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" width="50" height="30">
-						</div>
-					</div>
-					<div class="social-section">
-						<h4>Follow Us</h4>
-						<div class="social-icons-large">
-							<a href="#" aria-label="Facebook"><i class="bi bi-facebook" aria-hidden="true"></i></a>
-							<a href="#" aria-label="Instagram"><i class="bi bi-instagram" aria-hidden="true"></i></a>
-							<a href="#" aria-label="WhatsApp"><i class="bi bi-whatsapp" aria-hidden="true"></i></a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="copyright">© <span id="year"></span> GlobalTire</div>
-			<script>
-				document.getElementById('year').textContent = new Date().getFullYear();
-			</script>
-			<script src="js/main.js" defer></script>
-		</footer>
-	</body>
+	<script src="js/footer.js?v=1.1" defer></script>
+	<script src="js/auth.js?v=1.1" defer></script>
+        <script src="js/main.js" defer></script>
+</body>
 </html>

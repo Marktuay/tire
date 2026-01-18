@@ -5,7 +5,8 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
 		<title>My Account — GlobalTire</title>
 		<meta name="description" content="Login or Register to manage your tire orders and appointments." />
-		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/style.css?v=1.1" />
+		<link rel="stylesheet" href="css/footer.css?v=1.1" />
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -127,96 +128,10 @@
 		</main>
 
 		<footer id="contacto" class="site-footer dark-footer">
-			<div class="container footer-inner">
-					<div class="footer-col">
-						<h4>Quick Contact</h4>
-						<form class="footer-form" action="#" method="post" novalidate>
-							<div class="form-grid">
-								<div class="col">
-									<label for="footer-first" class="sr-only">First Name</label>
-									<input id="footer-first" name="first" type="text" placeholder="First Name" required />
-								</div>
-								<div class="col">
-									<label for="footer-last" class="sr-only">Last Name</label>
-									<input id="footer-last" name="last" type="text" placeholder="Last Name" required />
-								</div>
-								<div class="col">
-									<label for="footer-phone" class="sr-only">Phone</label>
-									<input id="footer-phone" name="phone" type="tel" placeholder="Phone" />
-								</div>
-								<div class="col">
-									<label for="footer-email" class="sr-only">Email</label>
-									<input id="footer-email" name="email" type="email" placeholder="Email" required />
-								</div>
-							</div>
-							<label for="footer-message" class="sr-only">Message</label>
-							<textarea id="footer-message" name="message" rows="4" placeholder="Message" required></textarea>
-							<div class="form-actions">
-								<button type="submit" class="btn small">Send</button>
-							</div>
-							<p class="form-note muted">We'll respond shortly. We don't share your information.</p>
-						</form>
-					</div>
-					<div class="footer-col footer-links-section">
-						<!-- Links populated by JS or static -->
-						<div class="footer-links-grid">
-							<div class="link-column">
-								<h4>USEFUL LINKS</h4>
-								<nav class="footer-nav">
-									<a href="index.html">
-										<span>Home</span>
-									</a>
-									<a href="about.html">
-										<span>About Us</span>
-									</a>
-									<a href="services.html">
-										<span>Services</span>
-									</a>
-									<a href="shop.html">
-										<span>Shop</span>
-									</a>
-									<a href="contact.html">
-										<span>Contact Us</span>
-									</a>
-								</nav>
-							</div>
-							<div class="link-column">
-								<h4>Accepted Payment Methods</h4>
-								<div class="payment-methods">
-									<i class="bi bi-credit-card-2-front" title="Visa"></i>
-									<i class="bi bi-credit-card" title="Mastercard"></i>
-									<i class="bi bi-paypal" title="PayPal"></i>
-									<i class="bi bi-cash-coin" title="Cash"></i>
-								</div>
-								
-								<h4 style="margin-top: 20px;">Follow Us</h4>
-								<div class="social-links">
-									<a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-									<a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
-									<a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-								</div>
-							</div>
-							<div class="link-column">
-								<h4>CONTACT US</h4>
-								<address class="footer-address">
-									<p><i class="bi bi-geo-alt"></i> 831 Harrison Avenue, New Jersey, 07032</p>
-									<p><i class="bi bi-telephone"></i> <a href="tel:+12019911200">+201 991 1200</a></p>
-									<p><i class="bi bi-envelope"></i> <a href="mailto:globalautocenterinc@gmail.com">globalautocenterinc@gmail.com</a></p>
-									<p><i class="bi bi-clock"></i> Mon-Sat: 8:00 AM - 6:00 PM</p>
-								</address>
-							</div>
-						</div>
-					</div>
-			</div>
-			<div class="footer-bottom">
-				<div class="container">
-					<p>&copy; 2026 GlobalTire. All rights reserved.</p>
-				</div>
-			</div>
+			<!-- Footer content will be injected by footer.js -->
 		</footer>
-
-        <script src="js/main.js"></script>
-        <!-- Auth Logic -->
-        <script src="js/auth.js"></script>
+		<script src="js/footer.js?v=1.1" defer></script>
+		<script src="js/auth.js?v=1.1" defer></script>
+		<script src="js/main.js" defer></script>
 	</body>
 </html>

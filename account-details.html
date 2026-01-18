@@ -5,7 +5,8 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
 		<title>Account Details — GlobalTire</title>
 		<meta name="description" content="Edit account details and change password." />
-		<link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/style.css?v=1.1" />
+        <link rel="stylesheet" href="css/footer.css?v=1.1" />
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -160,17 +161,12 @@
 		</main>
 
 		<footer id="contacto" class="site-footer dark-footer">
-			<div class="container footer-inner">
-					<div class="footer-col">
-						<h4>Quick Contact</h4>
-						<p>Global Auto Center</p>
-                        <p>831 Harrison Avenue, New Jersey, 07032</p>
-					</div>
-			</div>
+            <!-- Footer content will be injected by footer.js -->
 		</footer>
 
-        <script src="js/main.js"></script>
-        <script src="js/auth.js"></script>
+        <script src="js/footer.js?v=1.1" defer></script>
+        <script src="js/main.js" defer></script>
+        <script src="js/auth.js?v=1.1"></script>
         <script>
             document.addEventListener('DOMContentLoaded', async () => {
                 const userStr = localStorage.getItem('gt_user');

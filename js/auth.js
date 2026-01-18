@@ -4,13 +4,32 @@
  */
 
 const AUTH_CONFIG = {
-    endpoint: 'https://www.globaltireservices.com/auth-proxy.php'
+    // Use local proxy when developing on localhost (avoids browser CORS issues).
+    // In production (globaltireservices.com) it can hit the live proxy directly.
+    endpoint: (() => {
+        const host = window.location.hostname;
+        const port = window.location.port;
+        const isLocal = host === 'localhost' || host === '127.0.0.1' || host === '';
+        
+        // If running on Live Server (port 5500) or similar, we use the remote proxy
+        // because Live Server does not execute PHP scripts (auth-proxy.php).
+        if (isLocal && (port === '5500' || port === '5501' || port === '3000')) {
+            return 'https://www.globaltireservices.com/auth-proxy.php';
+        }
+        
+        return isLocal ? './auth-proxy.php' : 'https://www.globaltireservices.com/auth-proxy.php';
+    })()
 };
 
-document.addEventListener('DOMContentLoaded', () => {
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        initAuthForms();
+        checkLoginState();
+    });
+} else {
     initAuthForms();
     checkLoginState();
-});
+}
 
 function initAuthForms() {
     // LOGIN FORM
@@ -132,16 +151,17 @@ function updateUIForLoggedInUser(user) {
         if (user.avatar_url) {
              contentHtml = `
                 <img src="${user.avatar_url}" alt="Avatar" style="width: 28px; height: 28px; border-radius: 50%; margin-right: 8px; object-fit: cover; border: 1px solid #ddd;">
-                <span style="font-size:0.85rem; font-weight:600; text-decoration: underline; text-underline-offset: 4px;">${nameToDisplay}</span>
+                <span style="font-size:0.85rem; font-weight:600;">${nameToDisplay}</span>
              `;
         } else {
-             contentHtml = `<span style="font-size:0.85rem; font-weight:600; text-decoration: underline; text-underline-offset: 4px;">${nameToDisplay}</span>`;
+             contentHtml = `<span style="font-size:0.85rem; font-weight:600;">${nameToDisplay}</span>`;
         }
         
         // Update styling to match header text style better
         accountIcon.innerHTML = contentHtml;
         accountIcon.style.display = 'flex';
         accountIcon.style.alignItems = 'center';
+        accountIcon.style.textDecoration = 'none';
         
         // Redirect to Dashboard
         accountIcon.href = 'dashboard.html';

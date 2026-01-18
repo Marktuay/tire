@@ -4,14 +4,29 @@
  */
 
 const WC_CONFIG = {
-    // Pointing to the live server proxy so you can work locally without a local PHP server
-    endpoint: 'https://www.globaltireservices.com/api-proxy.php',
+    // Use local proxy when developing on localhost (avoids browser CORS issues).
+    // In production (globaltireservices.com) it can hit the live proxy directly.
+    endpoint: (() => {
+        const host = window.location.hostname;
+        const port = window.location.port;
+        const isLocal = host === 'localhost' || host === '127.0.0.1' || host === '';
+        
+        // If running on Live Server (port 5500) or similar, we use the remote proxy
+        // because Live Server does not execute PHP scripts (api-proxy.php).
+        if (isLocal && (port === '5500' || port === '5501' || port === '3000')) {
+            return 'https://www.globaltireservices.com/api-proxy.php';
+        }
+        
+        return isLocal ? './api-proxy.php' : 'https://www.globaltireservices.com/api-proxy.php';
+    })(),
     perPage: 4
 };
 
-document.addEventListener('DOMContentLoaded', () => {
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initWooCommerceFetch);
+} else {
     initWooCommerceFetch();
-});
+}
 
 async function initWooCommerceFetch() {
     // Check if we are on the single product details page
@@ -39,6 +54,19 @@ async function initWooCommerceFetch() {
         return;
     }
 
+    // If opened directly from the filesystem, fetches are commonly blocked (origin "null").
+    // Provide a clear message instead of leaving the user with a blank/skeleton UI.
+    if (window.location.protocol === 'file:') {
+        console.warn('WooCommerce: Detected file:// protocol. Use a local server for API requests.');
+        container.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--muted);">
+                <h3 style="color: white; margin-bottom: 10px;">Products can’t load from file://</h3>
+                <p style="margin: 0;">Run a local server (e.g. <strong>php -S localhost:8080</strong>) and open <strong>http://localhost:8080</strong>.</p>
+            </div>
+        `;
+        return;
+    }
+
     // Different settings for Shop page vs Home page
     const isShopPage = !!shopContainer;
     const limit = isShopPage ? 100 : 4; // Fetch more for shop page
@@ -52,6 +80,9 @@ async function initWooCommerceFetch() {
         console.warn('WooCommerce: API Endpoint not configured.');
         return; 
     }
+
+    // Preserve existing markup so we can restore it if the API call fails.
+    const originalMarkup = container.innerHTML;
 
     try {
         // Show loading state (Skeleton UI)
@@ -74,7 +105,8 @@ async function initWooCommerceFetch() {
         }
     } catch (error) {
         console.error('WooCommerce: Connection failed', error);
-        // Fallback is to do nothing, leaving static content visible
+        // Restore original markup so the page isn't stuck in a loading state.
+        container.innerHTML = originalMarkup;
     }
 }
 
