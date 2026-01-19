@@ -107,16 +107,35 @@
 	color: var(--accent);
 }
 
-.contact-info .hours {
-	font-size: 0.85rem;
-	margin-bottom: 4px;
-	color: rgba(255, 255, 255, 0.85);
-}
-
 .hours-block {
 	margin-top: 15px;
 	border-top: 1px solid rgba(255, 255, 255, 0.1);
 	padding-top: 12px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.main-footer-hours {
+	max-width: 300px;
+}
+
+.hours-row {
+	display: grid;
+	grid-template-columns: 85px 1fr;
+	gap: 10px;
+	font-size: 0.85rem;
+	color: rgba(255, 255, 255, 0.85);
+	line-height: 1.4;
+}
+
+.hours-row .day {
+	font-weight: 600;
+	color: #ffffff;
+}
+
+.hours-row .time {
+	color: rgba(255, 255, 255, 0.9);
 }
 
 /* Footer Bottom Section */
