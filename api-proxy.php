@@ -65,9 +65,11 @@ $requestUrl = $baseUrl . $baseEndpoint . $pathExtra . '?' . http_build_query($pa
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $requestUrl);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-// Optional: If you have SSL certificate issues on dev, you might need this (set to true in prod)
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); 
+// SECURITY: Always verify SSL in production. Set to false ONLY for local dev debugging if needed.
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true); 
 curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+curl_setopt($ch, CURLOPT_TIMEOUT, 30); // Prevent hung requests
+curl_setopt($ch, CURLOPT_USERAGENT, 'GlobalTire Proxy/1.0');
 
 // Execute request
 $response = curl_exec($ch);

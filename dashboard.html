@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
 		<title>My Account — GlobalTire</title>
 		<meta name="description" content="Manage your account, orders and addresses." />
-        <link rel="stylesheet" href="css/style.css?v=1.1" />
+        <link rel="stylesheet" href="css/style.css?v=1.2" />
         <link rel="stylesheet" href="css/footer.css?v=1.1" />
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,7 +24,7 @@
 				<a href="about.html">About Us</a>
 				<a href="automotive-services.html">Services</a>
 				<a href="shop.html">Shop</a>
-				<a href="contact.html" class="btn ghost">Contact Us</a>
+				<a href="contact.html" class="btn primary">Contact Us</a>
 			</nav>
 
 			<div class="header-right">
@@ -36,12 +36,26 @@
 					<button class="icon-btn" aria-label="Search">
 						<i class="bi bi-search" aria-hidden="true"></i>
 					</button>
-					<a href="login.html" class="icon-btn" aria-label="Account">
-						<i class="bi bi-person" aria-hidden="true"></i>
+
+					<div class="user-profile-header">
+						<img src="https://ui-avatars.com/api/?name=Marcelo&background=random" alt="Marcelo" class="user-avatar-small">
+						<span>Marcelo</span>
+					</div>
+					
+					<a href="login.html" class="logout-link" title="Logout">
+						<i class="bi bi-box-arrow-right"></i>
 					</a>
-					<a href="#" class="icon-btn" aria-label="Cart">
+
+					<a href="cart.html" class="icon-btn" aria-label="Cart" style="position: relative;">
 						<i class="bi bi-cart" aria-hidden="true"></i>
+						<span class="cart-count">0</span>
 					</a>
+
+					<div class="header-contact">
+						<a class="phone" href="tel:+12019911200">+1 (201) 991 1200</a>
+						<span class="address">831 Harrison Ave, Kearny, NJ 07032</span>
+					</div>
+
 					<button class="menu-toggle" aria-expanded="false" aria-controls="main-navigation" aria-label="Open menu">
 						<span class="hamburger">
 							<span class="bar bar1"></span>
@@ -79,28 +93,30 @@
 
                             <nav class="dashboard-nav">
                                 <ul style="list-style: none; padding: 0; margin: 0;">
-                                    <li style="margin-bottom: 10px;">
-                                        <a href="#" class="dash-link active" data-tab="dashboard" style="display: block; padding: 12px 15px; background: var(--panel); border-radius: 6px; color: #000; text-decoration: none; font-weight: 600;">
+                                    <li style="margin-bottom: 5px;">
+                                        <a href="dashboard.html" class="dash-link active" style="display: block; padding: 12px 15px; background: var(--panel); border-radius: 6px; color: #000; text-decoration: none; font-weight: 600;">
                                             <i class="bi bi-speedometer2" style="margin-right: 10px;"></i> Dashboard
                                         </a>
-                                    </li>
-                                    <li style="margin-bottom: 10px;">
-                                        <a href="orders.html" class="dash-link" style="display: block; padding: 12px 15px; color: #fff; text-decoration: none; opacity: 0.8; transition: all 0.2s;">
-                                            <i class="bi bi-box-seam" style="margin-right: 10px;"></i> Orders
-                                        </a>
-                                    </li>
-                                    <li style="margin-bottom: 10px;">
-                                        <a href="addresses.html" class="dash-link" style="display: block; padding: 12px 15px; color: #fff; text-decoration: none; opacity: 0.8; transition: all 0.2s;">
-                                            <i class="bi bi-geo-alt" style="margin-right: 10px;"></i> Addresses
-                                        </a>
-                                    </li>
-                                    <li style="margin-bottom: 10px;">
-                                        <a href="account-details.html" class="dash-link" style="display: block; padding: 12px 15px; color: #fff; text-decoration: none; opacity: 0.8; transition: all 0.2s;">
-                                            <i class="bi bi-person-gear" style="margin-right: 10px;"></i> Account Details
-                                        </a>
+                                        <ul style="list-style: none; padding: 5px 0 5px 20px; margin: 0;">
+                                            <li style="margin-bottom: 5px;">
+                                                <a href="orders.html" class="dash-link" style="display: block; padding: 8px 15px; color: #fff; text-decoration: none; opacity: 0.7; font-size: 0.95rem; transition: all 0.2s;">
+                                                    <i class="bi bi-box-seam" style="margin-right: 10px;"></i> Orders
+                                                </a>
+                                            </li>
+                                            <li style="margin-bottom: 5px;">
+                                                <a href="addresses.html" class="dash-link" style="display: block; padding: 8px 15px; color: #fff; text-decoration: none; opacity: 0.7; font-size: 0.95rem; transition: all 0.2s;">
+                                                    <i class="bi bi-geo-alt" style="margin-right: 10px;"></i> Addresses
+                                                </a>
+                                            </li>
+                                            <li style="margin-bottom: 5px;">
+                                                <a href="account-details.html" class="dash-link" style="display: block; padding: 8px 15px; color: #fff; text-decoration: none; opacity: 0.7; font-size: 0.95rem; transition: all 0.2s;">
+                                                    <i class="bi bi-person-gear" style="margin-right: 10px;"></i> Account Details
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </li>
                                     <li>
-                                        <a href="#" id="dash-logout" style="display: block; padding: 12px 15px; color: #ff6b6b; text-decoration: none; transition: all 0.2s;">
+                                        <a href="#" id="dash-logout" style="display: block; padding: 12px 15px; color: #ff6b6b; text-decoration: none; transition: all 0.2s; margin-top: 10px;">
                                             <i class="bi bi-box-arrow-left" style="margin-right: 10px;"></i> Logout
                                         </a>
                                     </li>
@@ -149,7 +165,8 @@
             <!-- Footer content will be injected by footer.js -->
 		</footer>
 
-		<script src="js/footer.js?v=1.1" defer></script>
+		<script src="js/cart.js?v=1.2"></script>
+    <script src="js/footer.js?v=1.1" defer></script>
 		<script src="js/main.js" defer></script>
         <script src="js/auth.js?v=1.1"></script>
         <script>

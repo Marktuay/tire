@@ -11,9 +11,10 @@ $allowed_origins = [
 $origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
 if (in_array($origin, $allowed_origins)) {
     header("Access-Control-Allow-Origin: $origin");
+    header("Access-Control-Allow-Credentials: true");
 }
 header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: POST, OPTIONS");
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 
 // Handle Preflight Options Request
@@ -23,13 +24,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 // 2. Load WordPress Core
-// We need access to wp_create_user, wp_signon, etc.
 if (file_exists('wp-load.php')) {
     require_once('wp-load.php');
 } else {
     http_response_code(500);
-    echo json_encode(['success' => false, 'message' => 'Server Error: WordPress core not found.']);
+    echo json_encode(['success' => false, 'message' => 'Server Configuration Error.']);
     exit;
+}
+
+/**
+ * SECURITY: Verify that the requested user_id matches the session.
+ * This prevents IDOR (Insecure Direct Object Reference) attacks.
+ */
+function verify_session($requested_id) {
+    if (!$requested_id) return false;
+    
+    // Check if user is logged in via WP cookies
+    $current_user_id = get_current_user_id();
+    
+    // For development, we might skip this if requested_id is passed and we are on local,
+    // but in production this IS REQUIRED.
+    if ($current_user_id === 0) {
+        // Not logged in server-side
+        return false;
+    }
+    
+    return ((int)$requested_id === (int)$current_user_id);
 }
 
 // 3. Process Request
@@ -42,14 +62,7 @@ if (!$data && !empty($_POST)) {
 }
 
 if ($action === 'login') {
-    $username = $data['username'] ?? '';
-    $password = $data['password'] ?? '';
-
-    if (empty($username) || empty($password)) {
-        echo json_encode(['success' => false, 'message' => 'Username and password are required.']);
-        exit;
-    }
-
+    // ... lines 54-80 approx
     $creds = [
         'user_login'    => $username,
         'user_password' => $password,
@@ -61,6 +74,10 @@ if ($action === 'login') {
     if (is_wp_error($user)) {
         echo json_encode(['success' => false, 'message' => strip_tags($user->get_error_message())]);
     } else {
+        // Force set cookies for the current session
+        wp_set_current_user($user->ID);
+        wp_set_auth_cookie($user->ID, true);
+        
         // Success! Return user info (excluding password/sensitive data)
         echo json_encode([
             'success' => true,
@@ -142,8 +159,10 @@ if ($action === 'login') {
     // Requires 'user_id' in GET or POST
     $user_id = $_REQUEST['user_id'] ?? 0;
     
-    if (!$user_id) {
-        echo json_encode(['success' => false, 'message' => 'User ID required']);
+    // SECURITY: IDOR Check
+    if (!verify_session($user_id)) {
+        http_response_code(403);
+        echo json_encode(['success' => false, 'message' => 'Unauthorized access.']);
         exit;
     }
 
@@ -174,8 +193,10 @@ if ($action === 'login') {
 } elseif ($action === 'get_address') {
     $user_id = $_REQUEST['user_id'] ?? 0;
     
-    if (!$user_id) {
-        echo json_encode(['success' => false, 'message' => 'User ID required']);
+    // SECURITY: IDOR Check
+    if (!verify_session($user_id)) {
+        http_response_code(403);
+        echo json_encode(['success' => false, 'message' => 'Unauthorized access.']);
         exit;
     }
 
@@ -189,8 +210,11 @@ if ($action === 'login') {
 
 } elseif ($action === 'get_details') {
     $user_id = $_REQUEST['user_id'] ?? 0;
-    if (!$user_id) {
-        echo json_encode(['success' => false, 'message' => 'User ID required']);
+    
+    // SECURITY: IDOR Check
+    if (!verify_session($user_id)) {
+        http_response_code(403);
+        echo json_encode(['success' => false, 'message' => 'Unauthorized access.']);
         exit;
     }
     
@@ -218,8 +242,11 @@ if ($action === 'login') {
     }
     
     $user_id = $data['user_id'] ?? 0;
-    if (!$user_id) {
-        echo json_encode(['success' => false, 'message' => 'User ID required']);
+    
+    // SECURITY: IDOR Check
+    if (!verify_session($user_id)) {
+        http_response_code(403);
+        echo json_encode(['success' => false, 'message' => 'Unauthorized access.']);
         exit;
     }
 
@@ -260,6 +287,41 @@ if ($action === 'login') {
                 'avatar_url' => get_avatar_url($u->ID)
             ]
         ]);
+    }
+
+} elseif ($action === 'update_address') {
+    $data = json_decode(file_get_contents('php://input'), true);
+    $user_id = $data['user_id'] ?? 0;
+    
+    // SECURITY: IDOR Check
+    if (!verify_session($user_id)) {
+        http_response_code(403);
+        echo json_encode(['success' => false, 'message' => 'Unauthorized access.']);
+        exit;
+    }
+
+    $type = $data['type'] ?? 'billing'; // billing or shipping
+
+    if (!class_exists('WC_Customer')) {
+        echo json_encode(['success' => false, 'message' => 'WooCommerce not active']);
+        exit;
+    }
+
+    try {
+        $customer = new WC_Customer($user_id);
+        
+        // Loop through address fields and set them
+        foreach ($address as $key => $value) {
+            $setter = "set_{$type}_{$key}";
+            if (method_exists($customer, $setter)) {
+                $customer->$setter(sanitize_text_field($value));
+            }
+        }
+        
+        $customer->save();
+        echo json_encode(['success' => true, 'message' => 'Address updated successfully']);
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
     }
 
 } else {

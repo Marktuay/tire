@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>Shopping Cart — Global Auto Center</title>
+		<link rel="stylesheet" href="css/style.css?v=1.2" />
+		<link rel="stylesheet" href="css/footer.css?v=1.1" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <style>
+            .cart-page {
+                padding: 140px 0 100px 0;
+                min-height: 70vh;
+            }
+            .cart-title {
+                font-size: 3rem;
+                font-weight: 800;
+                margin-bottom: 50px;
+                color: white;
+                text-transform: uppercase;
+                letter-spacing: -2px;
+                text-align: left;
+            }
+            .cart-grid {
+                display: grid;
+                grid-template-columns: 1fr 400px;
+                gap: 50px;
+                align-items: flex-start;
+            }
+            .cart-items {
+                background: rgba(255, 255, 255, 0.02);
+                border-radius: 24px;
+                padding: 10px;
+                border: 1px solid rgba(255, 255, 255, 0.05);
+            }
+            .cart-item {
+                display: grid;
+                grid-template-columns: 120px 1fr auto auto auto;
+                align-items: center;
+                gap: 30px;
+                padding: 30px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                transition: all 0.3s ease;
+            }
+            .cart-item:hover {
+                background: rgba(255, 255, 255, 0.03);
+                transform: translateX(5px);
+            }
+            .cart-item:last-child {
+                border-bottom: none;
+            }
+            .item-img {
+                width: 120px;
+                height: 120px;
+                background: white;
+                border-radius: 16px;
+                padding: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            }
+            .item-img img {
+                max-width: 100%;
+                max-height: 100%;
+                object-fit: contain;
+            }
+            .item-info h4 {
+                color: white;
+                margin: 0 0 8px 0;
+                font-size: 1.4rem;
+                font-weight: 700;
+            }
+            .item-info p {
+                color: var(--muted);
+                margin: 0;
+                font-size: 1rem;
+            }
+            .item-price-unit {
+                color: var(--accent);
+                font-weight: 600;
+            }
+            .item-total-price {
+                color: white;
+                font-weight: 800;
+                font-size: 1.5rem;
+                min-width: 120px;
+                text-align: right;
+            }
+            .item-qty {
+                display: flex;
+                align-items: center;
+                background: rgba(0,0,0,0.4);
+                border-radius: 40px;
+                padding: 6px;
+                border: 1px solid rgba(255,255,255,0.15);
+            }
+            .qty-btn {
+                background: rgba(255, 255, 255, 0.1);
+                border: none;
+                color: white;
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.2s ease;
+                font-size: 1.3rem;
+            }
+            .qty-btn:hover {
+                background: var(--accent);
+                color: #000;
+                transform: scale(1.1);
+            }
+            .qty-val {
+                padding: 0 18px;
+                font-weight: 800;
+                color: white;
+                font-size: 1.2rem;
+                min-width: 50px;
+                text-align: center;
+            }
+            .item-remove {
+                background: rgba(255, 77, 77, 0.1);
+                border: none;
+                color: #ff4d4d;
+                cursor: pointer;
+                width: 44px;
+                height: 44px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.3s ease;
+                font-size: 1.2rem;
+            }
+            .item-remove:hover {
+                background: #ff4d4d;
+                color: white;
+                transform: rotate(90deg);
+            }
+            .cart-summary {
+                background: white;
+                border-radius: 35px;
+                padding: 40px;
+                position: sticky;
+                top: 120px;
+                box-shadow: 0 40px 100px rgba(0,0,0,0.15);
+                border: 1px solid rgba(0,0,0,0.05);
+                text-align: center;
+                color: #1a1a1a;
+            }
+            .cart-summary h3 {
+                font-size: 1.6rem;
+                font-weight: 800;
+                margin-bottom: 30px;
+                color: #064a80;
+                text-align: center;
+                display: block;
+            }
+            .summary-row {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 15px;
+                color: #064a80;
+                font-size: 1.1rem;
+            }
+            .summary-total {
+                border-top: none;
+                padding-top: 0;
+                margin-top: 20px;
+                display: block;
+                margin-bottom: 40px;
+            }
+            .summary-total span:first-child {
+                display: block;
+                color: #064a80;
+                font-weight: 700;
+                margin-bottom: 5px;
+            }
+            .summary-total span:last-child {
+                font-size: 4rem;
+                color: #ffcc00;
+                font-weight: 800;
+                display: block;
+                letter-spacing: -1px;
+                margin-bottom: 10px;
+            }
+            .checkout-btn {
+                width: 100%;
+                padding: 22px;
+                font-size: 1.2rem;
+                font-weight: 900;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                border-radius: 20px;
+                background: #ffcc00 !important;
+                color: #064a80 !important;
+                border: none;
+                transition: all 0.3s;
+                cursor: pointer;
+                box-shadow: 0 10px 20px rgba(255, 204, 0, 0.2);
+                margin-bottom: 20px;
+            }
+            .checkout-btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 15px 30px rgba(255, 204, 0, 0.3);
+                background: #ffdb4d !important;
+            }
+            .continue-shopping-btn {
+                display: block;
+                width: 100%;
+                padding: 15px;
+                background: #ffcc00 !important;
+                color: #064a80 !important;
+                font-weight: 700;
+                border-radius: 15px;
+                text-decoration: none;
+                font-size: 1rem;
+                transition: all 0.3s;
+            }
+            .continue-shopping-btn:hover {
+                transform: translateY(-2px);
+                background: #ffdb4d !important;
+            }
+            .empty-cart {
+                text-align: center;
+                padding: 120px 40px;
+                background: rgba(255,255,255,0.01);
+                border-radius: 40px;
+                border: 2px dashed rgba(255,255,255,0.08);
+            }
+            .empty-cart i {
+                font-size: 8rem;
+                color: var(--muted);
+                margin-bottom: 40px;
+                display: block;
+                opacity: 0.2;
+            }
+            .empty-cart h2 {
+                font-size: 2.5rem;
+                font-weight: 800;
+                margin-bottom: 20px;
+                color: white;
+            }
+
+            @media (max-width: 1200px) {
+                .cart-grid {
+                    grid-template-columns: 1fr;
+                }
+                .cart-summary {
+                    position: static;
+                    max-width: 500px;
+                    margin: 0 auto;
+                }
+            }
+            @media (max-width: 768px) {
+                .cart-item {
+                    grid-template-columns: 100px 1fr auto;
+                    gap: 20px;
+                    padding: 20px;
+                }
+                .item-img { width: 100px; height: 100px; }
+                .item-qty { grid-row: 2; grid-column: 2; justify-self: start; }
+                .item-total-price { grid-row: 2; grid-column: 3; }
+                .item-remove { grid-row: 1; grid-column: 3; }
+                .cart-title { font-size: 2rem; }
+            }
+        </style>
+	</head>
+	<body class="theme-dark">
+		<header class="site-header dark">
+			<div class="container header-inner">
+			   <a class="logo" href="index.html">
+				   <img src="images/logo1.png" alt="GlobalTire logo" />
+			   </a>
+			<nav class="nav-desktop" aria-label="Main navigation">
+				<a href="index.html">Home</a>
+				<a href="about.html">About Us</a>
+				<a href="automotive-services.html">Services</a>
+				<a href="shop.html">Shop</a>
+				<a href="contact.html" class="btn primary">Contact Us</a>
+			</nav>
+
+			<div class="header-right">
+				<div class="header-icons">
+					<a href="#" class="social" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+					<a href="#" class="social" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+					<a href="#" class="social" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                </div>
+                <button class="icon-btn" aria-label="Search"><i class="bi bi-search"></i></button>
+                
+                <div class="user-profile-header">
+                    <img src="https://ui-avatars.com/api/?name=Marcelo&background=random" alt="Marcelo" class="user-avatar-small">
+                    <span>Marcelo</span>
+                </div>
+                
+                <a href="login.html" class="logout-link" title="Logout">
+                    <i class="bi bi-box-arrow-right"></i>
+                </a>
+
+                <a href="cart.html" class="icon-btn" aria-label="Cart" style="position: relative;">
+                    <i class="bi bi-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+
+                <div class="header-contact">
+                    <a class="phone" href="tel:+12019911200">+1 (201) 991 1200</a>
+                    <span class="address">831 Harrison Ave, Kearny, NJ 07032</span>
+                </div>
+
+                <button class="menu-toggle"><span class="hamburger"><span></span></span></button>
+			</div>
+		</div>
+	</header>
+
+	<main class="cart-page">
+		<div class="container">
+            <div class="cart-header" style="margin-bottom: 60px; border-left: 5px solid var(--accent); padding-left: 25px;">
+                <h1 class="cart-title" style="margin-bottom: 5px; color: #064a80;">Shopping Cart</h1>
+                <p style="color: var(--muted); font-size: 1.1rem; margin: 0;">Review your items before completing your purchase</p>
+            </div>
+            
+            <div id="cart-content">
+                <!-- Content injected by cart.js -->
+                 <div class="skeleton-loader" style="padding: 50px; text-align: center; color: white;">
+                    Loading your cart...
+                 </div>
+            </div>
+		</div>
+	</main>
+
+    <footer id="contacto" class="site-footer dark-footer"></footer>
+
+    <script src="js/cart.js?v=1.2"></script>
+    <script src="js/footer.js?v=1.1" defer></script>
+    <script src="js/auth.js?v=1.1" defer></script>
+    
+    <script>
+        // Cart Page Specific Logic
+        function renderCartPage() {
+            const container = document.getElementById('cart-content');
+            if (!container) return;
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-cart">
+                        <i class="bi bi-cart-x"></i>
+                        <h2>Your cart is empty</h2>
+                        <p>Looks like you haven't added anything to your cart yet.</p>
+                        <a href="shop.html" class="btn primary" style="margin-top: 20px; display: inline-block;">Start Shopping</a>
+                    </div>
+                `;
+                return;
+            }
+
+            let itemsHtml = '';
+            let subtotal = 0;
+
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+                
+                itemsHtml += `
+                    <div class="cart-item">
+                        <div class="item-img">
+                            <img src="${item.image}" alt="${item.name}">
+                        </div>
+                        <div class="item-info">
+                            <h4>${item.name}</h4>
+                            <p class="item-price-unit">Price: $${item.price.toFixed(2)}</p>
+                        </div>
+                        <div class="item-qty">
+                            <button class="qty-btn" onclick="updateQuantity(${item.id}, ${item.quantity - 1})" aria-label="Decrease quantity">-</button>
+                            <span class="qty-val">${item.quantity}</span>
+                            <button class="qty-btn" onclick="updateQuantity(${item.id}, ${item.quantity + 1})" aria-label="Increase quantity">+</button>
+                        </div>
+                        <div class="item-total-price">$${itemTotal.toFixed(2)}</div>
+                        <button class="item-remove" onclick="removeFromCart(${item.id})" title="Remove item">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = `
+                <div class="cart-grid">
+                    <div class="cart-items">
+                        ${itemsHtml}
+                    </div>
+                    <div class="cart-summary">
+                        <h3>Order Summary</h3>
+                        <div class="summary-total">
+                            <span>Total</span>
+                            <span>$${subtotal.toFixed(2)}</span>
+                        </div>
+                        <button class="checkout-btn" onclick="handleCheckout()">Proceed to Checkout</button>
+                        <a href="shop.html" class="continue-shopping-btn">Continue Shopping</a>
+                    </div>
+                </div>
+            `;
+        }
+
+        function handleCheckout() {
+            if (cart.length === 0) return;
+            
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            // Show a premium success state
+            const container = document.getElementById('cart-content');
+            container.innerHTML = `
+                <div class="empty-cart" style="background: linear-gradient(145deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%); border: 1px solid rgba(16, 185, 129, 0.3); padding: 80px 40px;">
+                    <i class="bi bi-patch-check-fill" style="color: #10b981; font-size: 7rem; opacity: 1;"></i>
+                    <h2 style="color: white; font-size: 3rem; margin-top: 10px;">Order Placed!</h2>
+                    <p style="color: rgba(255,255,255,0.7); font-size: 1.2rem; max-width: 500px; margin: 0 auto 30px auto;">
+                        Your total of <strong style="color: #10b981;">$${subtotal.toFixed(2)}</strong> has been processed successfully. 
+                        A confirmation email will be sent to your inbox.
+                    </p>
+                    <a href="index.html" class="btn primary" style="padding: 15px 40px; font-weight: 800;">Back to Home</a>
+                </div>
+            `;
+            
+            // Clear the actual cart state
+            if (typeof clearCart === 'function') {
+                clearCart();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Give a small delay to ensure cart.js initCart has run if async
+            setTimeout(renderCartPage, 100);
+        });
+    </script>
+</body>
+</html>

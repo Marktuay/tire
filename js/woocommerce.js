@@ -303,13 +303,25 @@ function renderSingleProduct(product, container) {
                 <div class="product-detail-description">
                     ${description}
                 </div>
-                <div class="product-actions" style="margin-top: 30px;">
-                     <a href="${externalLink}" target="_blank" class="btn primary">Buy on Website</a>
+                <div class="product-actions" style="margin-top: 30px; display: flex; gap: 15px;">
+                     <button id="add-to-cart-main" class="btn primary">Add to Cart</button>
                      <a href="shop.html" class="btn ghost">Back to Shop</a>
                 </div>
             </div>
         </div>
     `;
+
+    // Add Cart Listener
+    const addBtn = document.getElementById('add-to-cart-main');
+    if (addBtn) {
+        addBtn.onclick = () => {
+            if (typeof window.addToCart === 'function') {
+                window.addToCart(product);
+            } else {
+                console.error('Cart: addToCart function not found');
+            }
+        };
+    }
 }
 
 /**
@@ -375,8 +387,8 @@ function renderProducts(products, container) {
             </picture>
             <div class="card-body">
                 <h3>${product.name}</h3>
-                <div class="meta">
-                    <span class="price" style="font-weight: bold; color: var(--accent);">${activePrice}</span>
+                <div class="meta" style="display: flex; justify-content: space-between; align-items: center;">
+                    <span class="price" style="font-weight: bold; color: var(--accent); font-size: 1.1rem;">${activePrice}</span>
                     <a class="btn small" href="product.html?id=${product.id}">View</a>
                 </div>
             </div>
@@ -582,9 +594,11 @@ function renderShopProducts(products, container) {
             <div class="product-info-shop">
                 <h3>${product.name}</h3>
                 <p class="product-category">${category}</p>
-                <div class="product-footer">
+                <div class="product-footer" style="display: flex; flex-direction: column; gap: 10px;">
                     <p class="product-price">${activePrice}<span></span></p>
-                    <a href="product.html?id=${product.id}" class="btn primary">View Details</a>
+                    <div style="display: flex; gap: 8px;">
+                        <a href="product.html?id=${product.id}" class="btn primary small" style="flex: 1; text-align: center;">View Details</a>
+                    </div>
                 </div>
             </div>
         `;

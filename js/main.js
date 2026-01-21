@@ -318,38 +318,5 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Cart Badge Logic
-function updateCartCount() {
-    const cartIcon = document.querySelector('a[aria-label="Cart"]');
-    if (!cartIcon) return;
+// Cart Badge Logic is now handled by js/cart.js to avoid duplication
 
-    // Get count
-    let count = 0;
-    try {
-        const cartStr = localStorage.getItem('gt_cart');
-        if (cartStr) {
-            const cart = JSON.parse(cartStr);
-            if (Array.isArray(cart)) {
-                count = cart.reduce((acc, item) => acc + (item.quantity || 1), 0);
-            }
-        }
-    } catch (e) {
-        console.error('Error parsing cart', e);
-    }
-
-    // Remove existing badge if any
-    let badge = cartIcon.querySelector('.cart-badge');
-    if (!badge) {
-        badge = document.createElement('span');
-        badge.className = 'cart-badge';
-        badge.style.cssText = 'position: absolute; top: -8px; right: -8px; background: var(--accent, #DA291C); color: #fff; font-size: 0.7rem; font-weight: bold; min-width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; border-radius: 50%; padding: 2px; line-height: 1; border: 1px solid #fff;';
-        
-        cartIcon.style.position = 'relative';
-        cartIcon.appendChild(badge);
-    }
-    
-    badge.innerText = count;
-    badge.style.display = 'flex';
-}
-
-document.addEventListener('DOMContentLoaded', updateCartCount);

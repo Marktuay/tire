@@ -51,6 +51,7 @@ function initAuthForms() {
                 const response = await fetch(`${AUTH_CONFIG.endpoint}?action=login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include', // SECURITY: Send cookies to server
                     body: JSON.stringify(data)
                 });
 
@@ -96,6 +97,7 @@ function initAuthForms() {
                 const response = await fetch(`${AUTH_CONFIG.endpoint}?action=register`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include', // SECURITY: Send cookies to server
                     body: JSON.stringify(data)
                 });
 
