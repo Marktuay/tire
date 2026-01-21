@@ -1082,7 +1082,7 @@ body.modal-open {
   margin-left: auto;
   padding: 22px 22px 18px;
   border-radius: 14px;
-  background: rgba(6, 74, 128, 0.82);
+  /*background: rgba(6, 74, 128, 0.82);*/
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 16px 60px rgba(2, 6, 23, 0.50);
 }

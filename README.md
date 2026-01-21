@@ -7,126 +7,77 @@ Modern, responsive website for GlobalTire automotive services with dark theme, s
 - Recommended (supports `api-proxy.php`): `php -S localhost:8080`
 - Then open: `http://localhost:8080/index.html`
 
-Note: opening files via `file://` will prevent products from loading.
+Note: opening files via `file://` will prevent products from loading correctly due to CORS/Fetch restrictions.
 
 ---
 
 ## 🎨 Features
 
 ### Design & UX
-- **Dark Theme** with premium color palette (deep blue background, yellow accents)
-- **Smooth Animations** - Fade-in, slide-in effects on scroll
-- **Responsive Design** - Optimized for desktop, tablet, and mobile
-- **Modern UI** - Glassmorphism effects, rounded corners, subtle shadows
-- **Accessibility** - Semantic HTML, ARIA labels, keyboard navigation
-
+- **Dark Theme** with premium color palette (deep blue background, yellow accents).
+- **Smooth Animations** - Fade-in, slide-in, and hover effects on scroll.
+- **Responsive Architecture** - Modular CSS approach with page-specific overrides.
+- **Modern UI** - Clean typography, card-based layouts, and intuitive navigation.
+- **Accessibility** - Semantic HTML, ARIA labels, and keyboard-friendly controls.
 ### Sections
 
 1. **Hero Section**
-   - Eye-catching headline with call-to-action buttons
-   - Professional tire image
-   - Smooth scroll navigation
+   - High-impact headlines with dual call-to-action buttons.
+   - Support for specialized sub-sections like "Specials" with financing badges.
 
-2. **Products Catalog** (4 Premium Tires)
-   - All-Season X1
-   - OffRoad Pro
-   - EcoDrive
-   - Performance R
-   - Each with image, description, price, and "View" button
+2. **Products Catalog**
+   - Headless integration with WooCommerce to display tires dynamically.
+   - Features All-Season, OffRoad, and Performance variants with real-time data.
 
-3. **Services** (8 Professional Services)
-   - Oil Changes
-   - Batteries
-   - Brake Repair
-   - Engine Diagnostics
-   - Tire Services
-   - Preventative Maintenance
-   - Transmission Services
-   - Belts & Hoses
-   - Each service includes professional image and description
+3. **Services**
+   - Comprehensive grid of 8+ professional automotive services.
+   - Includes Oil Changes, Brake Repair, Transmission, and specialized Tire Services.
 
 4. **About Us**
-   - Company commitment and values
-   - "Why Choose Us" section with 5 key differentiators
-   - Professional team image
-   - Highlights: Certified technicians, top-quality brands (Goodyear, Dunlop, Kelly), competitive pricing
+   - Narrative of company history, values, and team expertise.
+   - Timeline and stats blocks for highlighting tenure and customer satisfaction.
 
-5. **Benefits Section**
-   - Expert installation
-   - Premium brands
-   - Guaranteed fitment
-   - Professional mechanic image
+5. **Location & Maps**
+   - Interactive Google Maps integration.
+   - Quick-contact panel with address and direct-dial links.
 
-6. **Location Section**
-   - Google Maps integration (3/4 width)
-   - Contact information panel (1/4 width)
-     - Address: 831 Harrison Avenue, New Jersey, 07032
-     - Phone: +201 991 1200
-     - Email: globalautocenterinc@gmail.com
-   - Icons for each contact method
+6. **Footer (Advanced)**
+   - **Modular Design**: Separated into dedicated HTML and CSS files for easy maintenance.
+   - **Integrated Form**: Quick contact form with real-time JavaScript validation.
+   - **Business Hours**: Clearly organized weekly schedule located in the primary column.
+   - **5-Column Link Grid**: Organized by Menu, Account, Categories, Support, and Contact Info.
+   - **Payment Trust Badges**: Stable Wikimedia icons for Visa, Mastercard, Amex, PayPal, and Apple Pay.
 
-7. **Footer**
-   - Contact form with validation
-   - **Modern 5-column layout**: Menu, Account, Categories, Support, and Get in Touch.
-   - Contact information with business hours
-   - **Social media & Payment Trust Badges**: Integration with Bootstrap Icons and payment method logos.
+### 🔧 Technical Architecture
 
-### Interactive Features
+#### CSS Organization
+The project has moved from a monolithic CSS structure to a **Modular System**:
+- `css/style.css`: Global variables, typography, navigation, and shared components.
+- `css/footer.css`: Dedicated styles for the dynamic footer, payment icons, and business hours.
+- `css/about-styles.css`, `css/contact-styles.css`, etc.: Page-specific overrides to reduce global bloat.
 
-- **Form Validation** - Real-time validation for contact form
-  - Required fields: Name, Last Name, Email, Message
-  - Email format validation
-  - Phone number validation (optional)
-  - Visual error feedback
-  - Success message on submission
+#### Iconography
+Successfully transitioned from complex manual SVGs to **Bootstrap Icons**:
+- Improved loading performance and reduced HTML file size.
+- Consistent styling across header, body sections, and footer links.
+- Easy customization via standard CSS `font-size` and `color` properties.
 
-- **Smooth Scrolling** - Internal anchor links scroll smoothly
-- **Mobile Menu** - Responsive hamburger menu with overlay
-- **Hover Effects** - Cards, buttons, and links have smooth transitions
-- **Footer Icons** - All footer links include relevant SVG icons with hover animations
-
-### 🔧 Technical Architecture & WordPress Simulation
-
-The project implements a **Headless Commerce Simulation** to replicate the behavior of a WordPress/WooCommerce backend within a static environment.
-
-- **Mock REST API Integration**: Utilizes asynchronous JavaScript (`js/woocommerce.js`) to mimic WordPress REST API endpoints. This enables retrieval of product data (JSON objects) via `fetch` requests without a live server.
-- **Client-Side Dynamic Rendering**:
-  - **Tire Finder Engine**: A custom filtering logic (`js/main.js`) that queries local datasets to return search results dynamically within a modal interface, emulating server-side query processing.
-  - **Related Products Algorithm**: Automates cross-selling by dynamically filtering and injecting product variants into the DOM based on current view context.
-- **Scalable Component Logic**: Key interface elements (like the Footer and Navigation) are standardized to facilitate future template conversion into PHP/WordPress themes.
+#### WordPress / WooCommerce Simulation
+- **Serverless API Discovery**: JavaScript detects the environment (Local vs. Production) and routes API calls through the appropriate PHP Proxy.
+- **Dynamic Injection**: Components like the footer and shop categories are injected via `fetch`, allowing for site-wide updates by editing a single file.
 
 ---
 
-## ⚠️ Critical Development Notes & Pitfalls (For AI Agents & Developers)
+## ⚠️ Critical Development Notes
 
-This section documents technical challenges and architectural decisions made to resolve specific environment issues. **Read this before modifying core logic.**
+### 1. CSS Syntax & Monoliths
+Historically, `style.css` was very large. It has been cleaned and balanced. **Important**: Always verify brace `{ }` balance when adding new global rules. Media queries must be placed carefully at the bottom of the file to ensure correct inheritance.
 
-### 1. Environment-Aware API Endpoints
-**Inconvenience**: Local development environments like VS Code "Live Server" (ports 5500/5501) do not execute PHP.
-**Solution**: `js/woocommerce.js` and `js/auth.js` use a ternary operator to detect the environment. 
-- If port is `5500` or `5501`, they bypass the local `api-proxy.php` and connect directly to the production proxy at `https://www.globaltireservices.com/api-proxy.php`.
-- **Pitfall**: If the remote server updates its CORS policy or proxy location, local development will break.
+### 2. Dynamic Component Versioning
+Because the browser aggressively caches the injected `footer.html`, the `footer.js` script includes a timestamp or version string in the fetch call. When making UI changes, increment the version in the HTML link (e.g., `?v=1.2`) to force a client-side update.
 
-### 2. Authentication & Session Management
-**Inconvenience**: `auth.js` was historically missing from several top-level HTML files, causing login/register failures on specific pages.
-**Solution**: Ensure `<script src="js/auth.js"></script>` is present in ALL template files.
-- **Pitfall**: Since this is a static site pretending to be dynamic, user state must be checked manually on DOM load across all pages.
-
-### 3. Dynamic Footer & Caching
-**Inconvenience**: The footer is injected via `js/footer.js` using `fetch('footer.html')`. Browsers aggressively cache this file, making UI changes invisible to users.
-**Solution**: 
-- The fetch call uses a timestamp: `fetch('footer.html?v=' + Date.now())`.
-- CSS and JS links in HTML files use versioning (e.g., `css/style.css?v=1.1`) to force refreshes.
-- **Pitfall**: When adding new columns to the footer, ensure `css/footer.css` is updated *and* old footer styles in the monolithic `css/style.css` are removed to avoid layout breakage.
-
-### 4. CSS Monolithic Conflicts
-**Inconvenience**: `css/style.css` contains nearly 4000 lines and often includes legacy/redundant footer styles that override the modular `css/footer.css`.
-**Solution**: New footer logic relies on `display: grid` with 5 columns. Ensure media queries in `style.css` do not force `flex-direction: column` or `grid-template-columns: 1fr` prematurely on desktop.
-- **Pitfall**: Always check for `!important` or high-specificity selectors in `style.css` before styling new components.
-
-### 5. WooCommerce Secure Proxy
-**Inconvenience**: Native WooCommerce REST API requires OAuth or Basic Auth headers which cannot be safely stored in frontend JS.
-**Solution**: All requests MUST go through `api-proxy.php` (Server) or the remote equivalent (Local Dev). Do not attempt to add `consumer_key` to fetch calls directly.
+### 3. Payment Icon Logic
+Payment icons in the footer use stable Wikimedia SVG URLs. Ensure the `object-fit: contain` property is maintained in `footer.css` to prevent logo distortion on different devices.
 
 ---
 
@@ -136,59 +87,34 @@ This section documents technical challenges and architectural decisions made to 
 .
 ├── index.html              # Home page
 ├── about.html              # About page
-├── services.html           # Main Services page
-├── automotive-services.html # Detailed Automotive Services
-├── shop.html               # Shop page
-├── product.html            # Product Details page
+├── automotive-services.html # Detailed Services
 ├── contact.html            # Contact page
+├── shop.html               # Shop / E-commerce page
+├── footer.html             # FOOTER FRAGMENT (Dynamic)
 ├── css/
-│   ├── style.css           # Shared styles (dark theme, animations, responsive)
-│   ├── about-styles.css
-│   ├── contact-styles.css
-│   ├── services-styles.css
-│   └── shop-styles.css
+│   ├── style.css           # Global core styles
+│   ├── footer.css          # Dedicated footer component
+│   ├── about-styles.css    # Page-specific
+│   └── ...                 # Other page-specific CSS files
 ├── js/
-│   ├── footer.js           # Footer injection + footer form validation
-│   ├── main.js             # Global UI (menu, modals, etc.)
-│   └── woocommerce.js      # Product fetch + rendering (Home/Shop/Product pages)
-├── images/                 # Logos, product/service images, favicon
-├── api-proxy.php           # Local/dev WooCommerce proxy (PHP)
-├── scripts/
-│   ├── download_and_optimize_images.sh
-│   └── generate_variants.sh
-└── README.md               # This file
+│   ├── footer.js           # Dynamic injection & validation
+│   ├── auth.js             # Session / Login logic
+│   ├── main.js             # Global interactions
+│   └── woocommerce.js      # API / Product logic
+├── images/                 # Optimized assets & logos
+└── api-proxy.php           # Secure WC API Bridge
 ```
 
 ---
 
 ## 🚀 Quick Start
 
-### Local Testing
-
-1. Navigate to the project folder:
-```bash
-cd /path/to/this/project
-```
-
-2. Start a local server:
-```bash
-python3 -m http.server 8000
-```
-
-3. Open in browser:
-```
-http://localhost:8000
-```
-
-### What to Test
-
-- ✅ Scroll through all sections to see animations
-- ✅ Hover over product cards and buttons
-- ✅ Click navigation links (smooth scroll)
-- ✅ Try the contact form (with/without valid data)
-- ✅ Hover over footer links to see icon animations
-- ✅ Test on mobile (resize browser or use dev tools)
-- ✅ Check the Google Maps integration
+1. **Serve the project**:
+   ```bash
+   php -S localhost:8000
+   ```
+2. **Access the site**: `http://localhost:8000`.
+3. **Verify Header/Footer**: Ensure icons load (requires Bootstrap Icons CDN or local assets).
 
 ---
 
