@@ -91,10 +91,70 @@ function initFooterFormValidation(root = document) {
 		}
 
 		if (isValid) {
-			showSuccess(form);
-			form.reset();
+			submitToCF7(form);
 		}
 	});
+
+	async function submitToCF7(form) {
+		const btn = form.querySelector('button[type="submit"]');
+		const originalText = btn.innerText;
+
+		// Simple sanitization to remove any HTML tags
+		const sanitize = (str) => str.replace(/<[^>]*>?/gm, '').trim();
+		
+		// Setup mapping for Contact Form 7 fields
+		// Replace '123' with your actual Contact Form 7 ID from WordPress
+		const CF7_FORM_ID = '5229'; 
+		const CF7_URL = `https://www.globaltireservices.com/wp-json/contact-form-7/v1/contact-forms/${CF7_FORM_ID}/feedback`;
+
+		const formData = new FormData();
+		formData.append('_wpcf7', CF7_FORM_ID);
+		formData.append('_wpcf7_unit_tag', `wpcf7-f${CF7_FORM_ID}-o1`);
+		formData.append('_wpcf7_container_post', '0');
+		formData.append('_wpcf7_locale', 'en_US');
+
+		formData.append('your-first-name', sanitize(form.querySelector('#footer-first').value));
+		formData.append('your-last-name', sanitize(form.querySelector('#footer-last').value));
+		formData.append('your-phone', sanitize(form.querySelector('#footer-phone').value));
+		formData.append('your-email', sanitize(form.querySelector('#footer-email').value));
+		formData.append('your-message', sanitize(form.querySelector('#footer-message').value));
+
+		try {
+			btn.disabled = true;
+			btn.innerText = 'Sending...';
+
+			const response = await fetch(CF7_URL, {
+				method: 'POST',
+				body: formData
+			});
+
+			const result = await response.json();
+			console.log('CF7 Footer Response:', result);
+
+			if (result.status === 'mail_sent') {
+				showSuccess(form);
+				form.reset();
+			} else {
+				if (result.invalid_fields) {
+					result.invalid_fields.forEach(field => {
+						console.error(`Field error (${field.into}): ${field.message}`);
+					});
+				}
+				throw new Error(result.message || 'Validation error');
+			}
+		} catch (error) {
+			console.error('CF7 Error:', error);
+			const errorDiv = document.createElement('div');
+			errorDiv.className = 'error-message';
+			errorDiv.style.color = '#ff4d4d';
+			errorDiv.style.marginTop = '10px';
+			errorDiv.innerText = 'Failed to send. Please try again or call us directly.';
+			form.appendChild(errorDiv);
+		} finally {
+			btn.disabled = false;
+			btn.innerText = originalText;
+		}
+	}
 
 	function showError(input, message) {
 		const errorDiv = document.createElement('div');
